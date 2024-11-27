@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 
-export default function UserTemplate() {
+export default function CustomerTemplate() {
   return (
     <div>
         <Outlet />
