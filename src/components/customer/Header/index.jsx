@@ -2,11 +2,11 @@ import { NavLink, Link } from "react-router-dom";
 
 export default function Header() {
     return (
-        <header className="bg-gray-900 p-4">
+        <header className="bg-primary-light p-4">
             <nav>
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <h1 className="text-red-600 text-2xl font-bold">
-                        <a href="#">MovieBooking</a>
+                    <h1 className="text-secondary text-2xl font-bold">
+                        <Link to="/">MovieBooking</Link>
                     </h1>
                     <div className="flex md:order-2 md:hidden space-x-3 md:space-x-0 rtl:space-x-reverse">
                         <button
@@ -68,13 +68,13 @@ export default function Header() {
                         <div className="flex gap-5 mt-5 md:hidden md:mt-0">
                             <Link
                                 to="/login"
-                                className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+                                className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
                             >
                                 Đăng nhập
                             </Link>
                             <Link
                                 to="/register"
-                                className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+                                className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
                             >
                                 Đăng ký
                             </Link>
@@ -83,13 +83,13 @@ export default function Header() {
                     <div className="hidden md:flex md:gap-5 md:order-3">
                         <Link
                             to="/login"
-                            className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+                            className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
                         >
                             Đăng nhập
                         </Link>
                         <Link
                             to="/register"
-                            className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+                            className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
                         >
                             Đăng ký
                         </Link>

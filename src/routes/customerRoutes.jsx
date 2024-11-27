@@ -1,4 +1,4 @@
-import CustomerLayout from "../layouts/CustomerLayout";
+import CustomerTemplate from "../pages/customer";
 import Home from "../pages/customer/Home";
 import Movies from "../pages/customer/Movies";
 import MovieDetail from "../pages/customer/MovieDetail";
