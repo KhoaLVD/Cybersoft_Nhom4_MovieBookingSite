@@ -1,9 +1,9 @@
-import CustomerLayout from "../layouts/CustomerLayout";
+import CustomerTemplate from "../pages/customer";
 import HomePage from "../pages/customer/HomePage";
 
 const customerRoutes = {
     path: "",
-    element: CustomerLayout,
+    element: CustomerTemplate,
     children: [
         {
             path: "",
