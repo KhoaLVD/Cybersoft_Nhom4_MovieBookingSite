@@ -9,7 +9,7 @@ import Register from "../pages/customer/Register";
 
 const customerRoutes = {
     path: "",
-    element: CustomerLayout,
+    element: CustomerTemplate,
     children: [
         {
             path: "",
