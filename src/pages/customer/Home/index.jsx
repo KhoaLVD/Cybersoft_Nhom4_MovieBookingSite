@@ -27,14 +27,14 @@ export default function Home() {
             {/* Movies showing */}
             <MoviesCarousel
                 label="Phim Đang Chiếu"
-                wrapperClass="container mx-auto py-10 px-4 md:px-0"
+                wrapperClass="container mx-auto py-10 px-8 md:px-0"
                 movies={moviesShowingCarousel}
             />
 
             {/* Hot Movies */}
             <MoviesCarousel
                 label="Phim Hot"
-                wrapperClass="bg-gray-900 mx-auto py-10 px-4 md:px-28"
+                wrapperClass="bg-gray-900 mx-auto py-10 px-8 md:px-28"
                 movies={moviesShowingCarousel}
             />
         </>
