@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function MovieCard({ movie }) {
     return (
-        <div className="relative bg-gray-800 p-1 md:p-2 rounded-lg h-fit md:h-[36rem]">
+        <div className="relative bg-gray-800 p-1 mx-2 md:p-2 rounded-lg h-fit md:h-[36rem]">
             <img
                 src={movie.hinhAnh}
                 alt={movie.tenPhim}

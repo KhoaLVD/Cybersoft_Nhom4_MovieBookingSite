@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <footer className="container mx-auto py-10 px-4 md:px-0">
+        <footer className="bg-primary-light rounded-lg mx-auto py-10 px-4 md:px-0">
             <div className="flex flex-col items-center md:flex-row text-center pb-10">
                 <h3 className="text-red-600 text-2xl font-bold flex-1 p-6">
                     <a href="#">MovieBooking</a>

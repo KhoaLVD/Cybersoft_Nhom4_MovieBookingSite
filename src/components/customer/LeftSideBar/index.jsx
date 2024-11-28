@@ -8,7 +8,7 @@ export default function LeftSideBar() {
             </h2>
 
             <nav>
-                <p className="text-2xl m-4">Lọc theo hệ thống rạp</p>
+                <p className="text-lg m-4">Lọc theo hệ thống rạp</p>
                 <ul className="flex justify-start items-center gap-2">
                     <li>
                         <Link
