@@ -18,6 +18,14 @@ export default {
                     hover: "#FFC107",
                 },
             },
+            gridTemplateColumns: {
+                // Simple 16 column grid
+                16: "repeat(16, minmax(0, 1fr))",
+            },
+            gridTemplateRows: {
+                // Simple 16 column grid
+                16: "repeat(16, minmax(0, 1fr))",
+            },
         },
     },
     plugins: [flowbite.plugin()],
