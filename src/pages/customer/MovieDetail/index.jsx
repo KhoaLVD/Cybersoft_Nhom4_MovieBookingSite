@@ -59,9 +59,9 @@ export default function MovieDetail() {
     ];
 
     return (
-        <div className="md:py-10 md:px-40">
+        <div className="md:py-16 lg:px-40">
             <div className="flex flex-col md:flex-row">
-                <div className="flex flex-col items-center md:w-1/3 px-6 py-6 md:px-6">
+                <div className="flex flex-col items-center md:w-1/3 px-6 md:px-6">
                     <img
                         className="w-full rounded-lg"
                         src="https://movienew.cybersoft.edu.vn/hinhanh/lat-mat-48h_gp01.jpg"
@@ -77,31 +77,31 @@ export default function MovieDetail() {
                     </button>
                 </div>
                 <div className="md:w-2/3 px-6">
-                    <div className="md:flex md:gap-8 mb-8">
-                        <h2 className="mb-4 md:mb-0 text-4xl font-bold">
+                    <div className="xl:flex md:gap-4 mb-8">
+                        <h2 className="mb-4 xl:mb-0 text-4xl font-bold">
                             Lat Mat 48H
                         </h2>
-                        <span className="mx-2 md:mx-0 top-6 right-10 px-4 py-2 bg-accent text-primary-light font-semibold rounded-sm">
+                        <span className="mx-2 xl:mx-0 top-6 right-10 px-4 py-2 bg-accent text-primary-light font-semibold rounded-sm">
                             Hot
                         </span>
-                        <span className="mx-2 md:mx-0 top-6 right-10 px-4 py-2 bg-lime-500 text-primary-light font-semibold rounded-sm">
+                        <span className="mx-2 xl:mx-0 top-6 right-10 px-4 py-2 bg-lime-500 text-primary-light font-semibold rounded-sm">
                             Đang chiếu
                         </span>
-                        <span className="mx-2 md:mx-0 top-6 right-10 px-4 py-2 bg-sky-500 text-primary-light font-semibold rounded-sm">
+                        <span className="mx-2 xl:mx-0 top-6 right-10 px-4 py-2 bg-sky-500 text-primary-light font-semibold rounded-sm">
                             Sắp chiếu
                         </span>
                     </div>
                     <div>
                         <p className="py-1">
                             <span className="font-bold">Ngày công chiếu:</span>
-                            <span>12/02/2021</span>
+                            <span> 12/02/2021</span>
                         </p>
                         <p className="py-1">
                             <span className="font-bold">Đánh giá:</span>
-                            <span>10/10</span>
+                            <span> 10/10</span>
                         </p>
                         <p className="py-1">
-                            <span className="font-bold">Nội dung:</span>
+                            <span className="font-bold">Nội dung: </span>
                             <span className="text-sm">
                                 Lat Mat 48H là câu chuyện về cuộc hành trình đầy
                                 hấp dẫ ngoài giờ làm việc của anh chàng nhân
@@ -140,6 +140,19 @@ export default function MovieDetail() {
                                             src="https://movienew.cybersoft.edu.vn/hinhanh/bhd-star-cineplex.png"
                                             alt="BHD"
                                         />
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 className="text-xl font-bold p-2 mt-4">Chọn rạp</h3>
+                        <div className="bg-primary-light mt-2 md:mt-0 rounded-lg px-4 py-2">
+                            <ul className="grid grid-cols-3 grid-rows-2 gap-2">
+                                <li className="py-1">
+                                    <button className="w-full py-2 px-1 bg-slate-50 text-primary-light text-sm font-bold md:hover:bg-slate-400 md:hover:transition md:duration-500 rounded-lg">
+                                        BHD Star Cineplex - 3/2
+                                    </button>
+                                    <button className="w-full py-2 px-1 bg-slate-50 text-primary-light text-sm font-bold md:hover:bg-slate-400 md:hover:transition md:duration-500 rounded-lg">
+                                        BHD Star Vincom
                                     </button>
                                 </li>
                             </ul>

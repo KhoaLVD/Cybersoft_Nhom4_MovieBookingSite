@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function MoviesCarousel({ label, wrapperClass, movies }) {
     let slickSetting = {
-        dots: true,
+        dots: false,
         infinite: false,
         speed: 500,
         slidesToShow: 4,
@@ -27,7 +27,6 @@ export default function MoviesCarousel({ label, wrapperClass, movies }) {
                     slidesToShow: 4,
                     slidesToScroll: 1,
                     infinite: true,
-                    dots: true,
                 },
             },
             {
@@ -36,7 +35,6 @@ export default function MoviesCarousel({ label, wrapperClass, movies }) {
                     slidesToShow: 3,
                     slidesToScroll: 1,
                     infinite: true,
-                    dots: true,
                 },
             },
             {
@@ -64,16 +62,14 @@ export default function MoviesCarousel({ label, wrapperClass, movies }) {
         ],
     };
 
-    const moviesList = movies.map((movie) => {
-        return <MovieCard key={movie.maPhim} movie={movie} />;
-    });
+    const moviesList = [];
 
     return (
         <section className={wrapperClass}>
             <h2 className="text-3xl font-bold text-center mb-8 text-white">
                 {label}
             </h2>
-            <Slider {...slickSetting}>{moviesList}</Slider>
+            {moviesList.length ? <Slider {...slickSetting}>{moviesList}</Slider> : <p>Chưa có bộ phim nào</p>}
         </section>
     );
 }

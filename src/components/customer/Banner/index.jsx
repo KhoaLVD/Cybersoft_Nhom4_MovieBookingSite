@@ -1,10 +1,10 @@
 export default function Banner() {
     return (
         <section
-            className="relative w-full md:max-w-screen-xl md:mx-auto"
+            className="relative w-full md:max-w-screen-2xl md:mx-auto"
             data-carousel="static"
         >
-            <div className="relative h-56 overflow-hidden rounded-lg md:h-[40rem]">
+            <div className="relative h-56 overflow-hidden rounded-lg md:h-[48rem]">
                 {/* Item 1 */}
                 <div
                     className="hidden duration-700 ease-in-out"

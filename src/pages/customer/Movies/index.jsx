@@ -8,7 +8,7 @@ export default function Movies() {
     let heThongRap = searchParams.get("heThongRap");
 
     return (
-        <div className="bg-zinc-800 flex flex-col md:flex-row px-2 py-4 md:py-10 md:px-6">
+        <div className="bg-zinc-800 flex flex-col md:flex-row px-2 py-4 md:py-10 md:px-6 md:max-w-screen-2xl 2xl:mx-auto">
             <LeftSideBar />
             <MoviesGrid />
         </div>
