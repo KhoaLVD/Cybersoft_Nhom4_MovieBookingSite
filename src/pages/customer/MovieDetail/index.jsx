@@ -151,6 +151,8 @@ export default function MovieDetail() {
                                     <button className="w-full py-2 px-1 bg-slate-50 text-primary-light text-sm font-bold md:hover:bg-slate-400 md:hover:transition md:duration-500 rounded-lg">
                                         BHD Star Cineplex - 3/2
                                     </button>
+                                </li>
+                                <li className="py-1">
                                     <button className="w-full py-2 px-1 bg-slate-50 text-primary-light text-sm font-bold md:hover:bg-slate-400 md:hover:transition md:duration-500 rounded-lg">
                                         BHD Star Vincom
                                     </button>
