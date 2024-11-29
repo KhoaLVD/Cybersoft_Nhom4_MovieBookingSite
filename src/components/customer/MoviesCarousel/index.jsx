@@ -62,14 +62,20 @@ export default function MoviesCarousel({ label, wrapperClass, movies }) {
         ],
     };
 
-    const moviesList = [];
+    const moviesList = movies.map((movie) => (
+        <MovieCard key={movie.maPhim} movie={movie} />
+    ));
 
     return (
         <section className={wrapperClass}>
             <h2 className="text-3xl font-bold text-center mb-8 text-white">
                 {label}
             </h2>
-            {moviesList.length ? <Slider {...slickSetting}>{moviesList}</Slider> : <p>Chưa có bộ phim nào</p>}
+            {moviesList.length ? (
+                <Slider {...slickSetting}>{moviesList}</Slider>
+            ) : (
+                <p>Chưa có bộ phim nào</p>
+            )}
         </section>
     );
 }
