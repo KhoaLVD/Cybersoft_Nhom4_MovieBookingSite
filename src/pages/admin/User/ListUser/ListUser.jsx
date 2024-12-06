@@ -1,10 +1,11 @@
 import { fetchListUsers } from "./reducer"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
+import { deleteUser } from "../DeleteUser/reducer"
 
 export default function ListUser() {
     const dispatch = useDispatch()
-    const props = useSelector((state) => state.listUserReducer)
+    const props = useSelector((state) => state.adminListUserReducer)
 
     useEffect(()=>{
         dispatch(fetchListUsers());
@@ -44,7 +45,9 @@ export default function ListUser() {
                     </td>
                     <td className="px-6 py-4">
                     <button type="button" className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Chỉnh sửa</button>
-                    <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Xoá</button>
+                    <button type="button" 
+                    onClick={() => {dispatch(deleteUser(user.taiKhoan))}}
+                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Xoá</button>
                     </td>
                 </tr>
                 )

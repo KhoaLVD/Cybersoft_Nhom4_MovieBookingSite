@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import api from "../../../../utils/api/adminApi"
 
-export const addUser = createAsyncThunk("user/addUser", async(user, {rejectWithValue})=>{
+export const deleteUser = createAsyncThunk("user/deleteUser", async(taiKhoan, {rejectWithValue})=>{
     try {
-        const result = await api.post(`/QuanLyNguoiDung/ThemNguoiDung`, user);
+        const result = await api.delete(`/QuanLyNguoiDung/XoaNguoiDung`, taiKhoan);
         return result.data.content;
     } catch (e) {
         return rejectWithValue(e.response);
@@ -16,23 +16,23 @@ const initialState = {
     error: null
 }
 
-const adminAddUserReducer = createSlice({
-    name: "adminAddUserReducer",
+const adminDeleteUserReducer = createSlice({
+    name: "adminDeleteUserReducer",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(addUser.pending, (state) =>{
+        builder.addCase(deleteUser.pending, (state) =>{
             state.loading = true;
         });
-        builder.addCase(addUser.fulfilled, (state, action) => {
+        builder.addCase(deleteUser.fulfilled, (state, action) => {
             state.loading = false;
             state.data = action.payload;
         } );
-        builder.addCase(addUser.rejected, (state, action) =>{
+        builder.addCase(deleteUser.rejected, (state, action) =>{
             state.loading = false;
             state.error = action.payload;
         });
     }
 })
 
-export default adminAddUserReducer.reducer;
+export default adminDeleteUserReducer.reducer;

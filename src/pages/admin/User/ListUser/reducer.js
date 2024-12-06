@@ -16,8 +16,8 @@ const initialState = {
     error: null
 }
 
-const listUserReducer = createSlice({
-    name: "listUserReducer",
+const adminListUserReducer = createSlice({
+    name: "adminListUserReducer",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -36,4 +36,4 @@ const listUserReducer = createSlice({
 
 })
 
-export default listUserReducer.reducer;
+export default adminListUserReducer.reducer;

@@ -1,5 +1,6 @@
 import adminLoginReducer from "../../../pages/admin/Auth/duck/reducer";
-import listUserReducer from "../../../pages/admin/User/ListUser/reducer";
-import addUserReducer from "../../../pages/admin/User/AddUser/reducer";
+import adminListUserReducer from "../../../pages/admin/User/ListUser/reducer";
+import adminAddUserReducer from "../../../pages/admin/User/AddUser/reducer";
+import adminDeleteUserReducer from "../../../pages/admin/User/DeleteUser/reducer";
 
-export default { adminLoginReducer, listUserReducer, addUserReducer };
+export default { adminLoginReducer, adminListUserReducer, adminAddUserReducer, adminDeleteUserReducer };

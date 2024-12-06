@@ -6,7 +6,7 @@ import * as Yup from "yup"
 
 export default function AddUser() {
     const dispatch = useDispatch();
-    const props = useSelector((state) => state.addUserReducer);
+    const props = useSelector((state) => state.adminAddUserReducer);
     const formik = useFormik({
         initialValues: {
             taiKhoan: "",
