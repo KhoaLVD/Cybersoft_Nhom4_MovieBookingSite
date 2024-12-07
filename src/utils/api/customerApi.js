@@ -1,11 +1,12 @@
 import axios from "axios";
+import { config } from "@/config";
 
 const accessToken = localStorage.getItem("USER_ADMIN")
     ? JSON.parse(localStorage.getItem("USER_ADMIN")).accessToken
     : "";
 
 const api = axios.create({
-    baseURL: "https://movienew.cybersoft.edu.vn/api",
+    baseURL: config.apiConfig.baseUrl,
     headers: {
         Authorization: `Bearer ${accessToken}`,
         TokenCybersoft:

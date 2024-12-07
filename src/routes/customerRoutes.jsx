@@ -7,10 +7,11 @@ import Booking from "@/pages/customer/Booking";
 import Contact from "@/pages/customer/Contact";
 import Login from "@/pages/customer/Login";
 import Register from "@/pages/customer/Register";
+import { lazy } from "react";
 
 const customerRoutes = {
     path: "",
-    element: CustomerTemplate,
+    element: lazy(() => import("@/pages/customer")),
     children: [
         {
             path: "",

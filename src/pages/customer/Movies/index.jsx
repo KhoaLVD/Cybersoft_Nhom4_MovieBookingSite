@@ -8,10 +8,12 @@ import MoviesGrid from "@/components/customer/MoviesGrid";
 export default function Movies() {
     const dispatch = useDispatch();
     const response = useSelector(
-        (state) => state.customerMoviesListPageByPagination.data
+        (state) => state.customerMoviesListPageByPagination
     );
 
-    let movies = response?.items || [];
+    const isLoading = response?.loading;
+
+    let movies = response?.data.items || [];
 
     const [searchParams] = useSearchParams();
 
@@ -36,7 +38,7 @@ export default function Movies() {
     return (
         <div className="bg-zinc-800 flex flex-col md:flex-row px-2 py-4 md:py-10 md:px-6 md:max-w-screen-2xl 2xl:mx-auto">
             <LeftSideBar />
-            <MoviesGrid movies={movies} />
+            {isLoading ? <div>Loading...</div> : <MoviesGrid movies={movies} />}
         </div>
     );
 }
