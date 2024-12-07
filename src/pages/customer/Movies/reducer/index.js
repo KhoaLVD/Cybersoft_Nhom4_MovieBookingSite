@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
     fetchMovies,
     fetchPaginationMovie,
-} from "../../../../utils/redux/thunk/fetchMovies";
+} from "@/utils/redux/thunk/fetchMovies";
 
 const customerMoviesListPageInitialState = {
     loading: false,

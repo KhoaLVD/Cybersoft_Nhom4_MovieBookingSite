@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { fetchPaginationMovie } from "../../../utils/redux/thunk/fetchMovies";
-import LeftSideBar from "../../../components/customer/LeftSideBar";
-import MoviesGrid from "../../../components/customer/MoviesGrid";
+import { fetchPaginationMovie } from "@/utils/redux/thunk/fetchMovies";
+import LeftSideBar from "@/components/customer/LeftSideBar";
+import MoviesGrid from "@/components/customer/MoviesGrid";
 
 export default function Movies() {
     const dispatch = useDispatch();

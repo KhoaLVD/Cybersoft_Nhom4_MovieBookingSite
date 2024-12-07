@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
-import MoviesCarousel from "../../../components/customer/MoviesCarousel";
-import MovieTrailerModal from "../../../components/customer/MovieTrailerModal";
+import MoviesCarousel from "@/components/customer/MoviesCarousel";
+import MovieTrailerModal from "@/components/customer/MovieTrailerModal";
 
 export default function MovieDetail() {
     // Get movie ID from URL

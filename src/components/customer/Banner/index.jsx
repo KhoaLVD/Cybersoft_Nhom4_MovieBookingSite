@@ -1,4 +1,4 @@
-import api from "../../../utils/api/customerApi";
+import api from "@/utils/api/customerApi";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 

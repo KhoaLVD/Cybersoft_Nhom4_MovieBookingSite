@@ -1,12 +1,12 @@
-import CustomerTemplate from "../pages/customer";
-import Home from "../pages/customer/Home";
-import Movies from "../pages/customer/Movies";
-import MovieDetail from "../pages/customer/MovieDetail";
-import Cinema from "../pages/customer/Cinema";
-import Booking from "../pages/customer/Booking";
-import Contact from "../pages/customer/Contact";
-import Login from "../pages/customer/Login";
-import Register from "../pages/customer/Register";
+import CustomerTemplate from "@/pages/customer";
+import Home from "@/pages/customer/Home";
+import Movies from "@/pages/customer/Movies";
+import MovieDetail from "@/pages/customer/MovieDetail";
+import Cinema from "@/pages/customer/Cinema";
+import Booking from "@/pages/customer/Booking";
+import Contact from "@/pages/customer/Contact";
+import Login from "@/pages/customer/Login";
+import Register from "@/pages/customer/Register";
 
 const customerRoutes = {
     path: "",
