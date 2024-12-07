@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import { useSearchParams } from "react-router-dom";
-import { pageSize } from "../../../config/customer/movie/pagination";
+import { pageSize } from "@/config/customer/movie/pagination";
 
 export default function MoviesGrid({ movies }) {
     const [searchParams] = useSearchParams();

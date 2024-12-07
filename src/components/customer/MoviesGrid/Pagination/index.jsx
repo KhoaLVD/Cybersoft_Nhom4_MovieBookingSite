@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchMovies } from "../../../../utils/redux/thunk/fetchMovies";
-import { pageSize } from "../../../../config/customer/movie/pagination";
+import { fetchMovies } from "@/utils/redux/thunk/fetchMovies";
+import { pageSize } from "@/config/customer/movie/pagination";
 
 export default function Pagination() {
     const [searchParams, setSearchParams] = useSearchParams();

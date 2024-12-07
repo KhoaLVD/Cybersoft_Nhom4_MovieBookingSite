@@ -1,6 +1,6 @@
-import Banner from "../../../components/customer/Banner";
-import MoviesCarousel from "../../../components/customer/MoviesCarousel";
-import api from "../../../utils/api/customerApi";
+import Banner from "@/components/customer/Banner";
+import MoviesCarousel from "@/components/customer/MoviesCarousel";
+import api from "@/utils/api/customerApi";
 import { useEffect, useState } from "react";
 
 export default function Home() {
