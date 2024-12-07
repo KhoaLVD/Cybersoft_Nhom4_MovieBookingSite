@@ -1,43 +1,43 @@
+import api from "../../../utils/api/customerApi";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 export default function Banner() {
+    let [banners, setBanner] = useState([]);
+
+    useEffect(() => {
+        try {
+            api.get("/QuanLyPhim/LayDanhSachBanner").then((response) => {
+                setBanner(response.data.content);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
+
+    let getBannerList = banners.map((banner) => (
+        <div
+            key={banner.maBanner}
+            className="hidden duration-700 ease-in-out"
+            data-carousel-item
+        >
+            <Link to={`/movie/${banner.maPhim}`}>
+                <img
+                    src={banner.hinhAnh}
+                    className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                    alt="..."
+                />
+            </Link>
+        </div>
+    ));
+
     return (
         <section
             className="relative w-full md:max-w-screen-2xl md:mx-auto"
             data-carousel="static"
         >
             <div className="relative h-56 overflow-hidden rounded-lg md:h-[48rem]">
-                {/* Item 1 */}
-                <div
-                    className="hidden duration-700 ease-in-out"
-                    data-carousel-item
-                >
-                    <img
-                        src="https://movienew.cybersoft.edu.vn/hinhanh/ban-tay-diet-quy.png"
-                        className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                        alt="..."
-                    />
-                </div>
-                {/* Item 2 */}
-                <div
-                    className="hidden duration-700 ease-in-out"
-                    data-carousel-item="active"
-                >
-                    <img
-                        src="https://movienew.cybersoft.edu.vn/hinhanh/lat-mat-48h.png"
-                        className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                        alt="..."
-                    />
-                </div>
-                {/* Item 3 */}
-                <div
-                    className="hidden duration-700 ease-in-out"
-                    data-carousel-item
-                >
-                    <img
-                        src="https://movienew.cybersoft.edu.vn/hinhanh/cuoc-chien-sinh-tu.png"
-                        className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                        alt="..."
-                    />
-                </div>
+                {getBannerList}
             </div>
             {/* Slider controls */}
             <button
