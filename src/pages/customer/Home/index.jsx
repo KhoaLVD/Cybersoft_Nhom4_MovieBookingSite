@@ -11,7 +11,7 @@ export default function Home() {
             try {
                 const response = await api.get("/QuanLyPhim/LayDanhSachPhim", {
                     params: {
-                        maNhom: "GP03",
+                        maNhom: "GP01",
                     },
                 });
                 setMovies(response.data.content);

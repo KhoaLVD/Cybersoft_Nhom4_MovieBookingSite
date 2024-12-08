@@ -1,8 +1,8 @@
 import axios from "axios";
 import { config } from "@/config";
 
-const accessToken = localStorage.getItem("USER_ADMIN")
-    ? JSON.parse(localStorage.getItem("USER_ADMIN")).accessToken
+const accessToken = localStorage.getItem("CUSTOMER_TOKEN")
+    ? JSON.parse(localStorage.getItem("CUSTOMER_TOKEN")).accessToken
     : "";
 
 const api = axios.create({

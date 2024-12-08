@@ -32,7 +32,7 @@ export default function Movies() {
     }
 
     useEffect(() => {
-        dispatch(fetchPaginationMovie({ maNhom: "GP03", soTrang: page }));
+        dispatch(fetchPaginationMovie({ maNhom: "GP01", soTrang: page }));
     }, [page]);
 
     return (

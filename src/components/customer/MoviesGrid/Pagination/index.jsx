@@ -51,7 +51,7 @@ export default function Pagination() {
     }
 
     useEffect(() => {
-        dispatch(fetchMovies("GP03"));
+        dispatch(fetchMovies("GP01"));
     }, []);
 
     return (

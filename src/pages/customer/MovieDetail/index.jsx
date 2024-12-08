@@ -1,62 +1,103 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Modal } from "flowbite";
+import { fetchMovieById } from "@/utils/redux/thunk/fetchMovieById";
+import { fetchMovieShowTimes } from "@/utils/redux/thunk/fetchMovieShowtimes";
+import { fetchMovies } from "@/utils/redux/thunk/fetchMovies";
+import CinemaSystemSelector from "@/components/customer/MovieDetail/CinemaSystemSelector";
+import CinemaSelector from "@/components/customer/MovieDetail/CinemaSelector";
+import WatchTimesSelector from "@/components/customer/MovieDetail/WatchTimesSelector";
 import MoviesCarousel from "@/components/customer/MoviesCarousel";
 import MovieTrailerModal from "@/components/customer/MovieTrailerModal";
 
 export default function MovieDetail() {
+    const dispatch = useDispatch();
+
+    // Fetch movie by ID
+    const response = useSelector((state) => state.customerMovieDetailPage);
+
+    const movie = response.data;
+
     // Get movie ID from URL
     let { id } = useParams();
 
-    let [showModal, setShowModal] = useState(true);
+    useEffect(() => {
+        dispatch(fetchMovieById(id));
+        dispatch(fetchMovieShowTimes(id));
+        dispatch(fetchMovies("GP01"));
+    }, []);
 
-    let handleCloseShowModal = () => {
-        setShowModal(false);
+    const showTimesRes = useSelector(
+        (state) => state.customerMovieDetailPageMoviewShowTimesReducer.data
+    );
+
+    const cinemaSystemList = showTimesRes ? showTimesRes.heThongRapChieu : [];
+
+    const cinemaSystemSelected = useSelector(
+        (state) =>
+            state.customerMovieDetailPageMoviewShowTimesReducer
+                .selectedCinemaSystem
+    );
+
+    let cinemaList = [];
+    if (cinemaSystemSelected) {
+        const cinemaListRes = cinemaSystemList.find((cinemaSystem) => {
+            return cinemaSystem.maHeThongRap === cinemaSystemSelected;
+        });
+        cinemaList = cinemaListRes ? cinemaListRes.cumRapChieu : [];
+    }
+
+    const selectedCinema = useSelector(
+        (state) =>
+            state.customerMovieDetailPageMoviewShowTimesReducer.selectedCinema
+    );
+
+    let watchTimeList = [];
+    if (cinemaSystemSelected && selectedCinema) {
+        const watchTimeListRes = cinemaList.find((cinema) => {
+            return cinema.maCumRap === selectedCinema;
+        });
+        watchTimeList = watchTimeListRes ? watchTimeListRes.lichChieuPhim : [];
+    }
+
+    const selectedWatchTime = useSelector(
+        (state) =>
+            state.customerMovieDetailPageMoviewShowTimesReducer
+                .selectedWatchTime
+    );
+
+    const hotMoviesRes = useSelector(
+        (state) => state.customerMoviesListPage.data
+    );
+
+    const hotMovies = hotMoviesRes.filter(
+        (hotMovie) => hotMovie.hot && hotMovie.maPhim !== movie.maPhim
+    );
+
+    const [modalShowing, setModalShowing] = useState(false);
+
+    const modalOptions = {
+        onHide: () => {
+            setModalShowing(false);
+        },
+        onShow: () => {
+            setModalShowing(true);
+        },
     };
 
-    let moviesShowingCarousel = [
-        {
-            maPhim: 1283,
-            tenPhim: "Lật mặt 48h",
-            hinhAnh:
-                "https://movienew.cybersoft.edu.vn/hinhanh/lat-mat-48h_gp01.jpg",
-            ngayKhoiChieu: "2024-10-10T00:00:00",
-        },
-        {
-            maPhim: 1318,
-            tenPhim: "Lừa đểu gặp lừa đảo",
-            hinhAnh:
-                "https://movienew.cybersoft.edu.vn/hinhanh/lua-deu-gap-lua-daoo_gp01.jpg",
-            ngayKhoiChieu: "2024-08-26T14:47:53.63",
-        },
-        {
-            maPhim: 1319,
-            tenPhim: "Lừa đểu gặp lừa đảo",
-            hinhAnh:
-                "https://movienew.cybersoft.edu.vn/hinhanh/lua-deu-gap-lua-daoo_gp01.jpg",
-            ngayKhoiChieu: "2024-08-26T14:47:53.63",
-        },
-        {
-            maPhim: 2123,
-            tenPhim: "Lừa đểu gặp lừa đảo",
-            hinhAnh:
-                "https://movienew.cybersoft.edu.vn/hinhanh/lua-deu-gap-lua-daoo_gp01.jpg",
-            ngayKhoiChieu: "2024-08-26T14:47:53.63",
-        },
-        {
-            maPhim: 424,
-            tenPhim: "Lừa đểu gặp lừa đảo",
-            hinhAnh:
-                "https://movienew.cybersoft.edu.vn/hinhanh/lua-deu-gap-lua-daoo_gp01.jpg",
-            ngayKhoiChieu: "2024-08-26T14:47:53.63",
-        },
-        {
-            maPhim: 118,
-            tenPhim: "Lừa đểu gặp lừa đảo",
-            hinhAnh:
-                "https://movienew.cybersoft.edu.vn/hinhanh/lua-deu-gap-lua-daoo_gp01.jpg",
-            ngayKhoiChieu: "2024-08-26T14:47:53.63",
-        },
-    ];
+    const instanceOptions = {
+        id: "trailer-modal",
+        override: true,
+    };
+
+    const $modalElement = document.querySelector("#trailer-modal");
+
+    const trailerModal = new Modal(
+        $modalElement,
+        modalOptions,
+        instanceOptions
+    );
 
     return (
         <div className="md:py-16 lg:px-40">
@@ -64,14 +105,12 @@ export default function MovieDetail() {
                 <div className="flex flex-col items-center md:w-1/3 px-6 md:px-6">
                     <img
                         className="w-full rounded-lg"
-                        src="https://movienew.cybersoft.edu.vn/hinhanh/lat-mat-48h_gp01.jpg"
-                        alt="Lat Mat 48H"
+                        src={movie.hinhAnh}
+                        alt={movie.tenPhim}
                     />
                     <button
-                        data-modal-target="static-modal"
-                        data-modal-toggle="static-modal"
                         className="px-6 py-2 mt-7 inline-block font-bold text-xl md:text-2xl rounded-lg bg-accent"
-                        onClick={() => setShowModal(true)}
+                        onClick={() => trailerModal.show()}
                     >
                         Xem trailer
                     </button>
@@ -79,133 +118,84 @@ export default function MovieDetail() {
                 <div className="md:w-2/3 px-6">
                     <div className="xl:flex md:gap-4 mb-8">
                         <h2 className="mb-4 xl:mb-0 text-4xl font-bold">
-                            Lat Mat 48H
+                            {movie.tenPhim}
                         </h2>
-                        <span className="mx-2 xl:mx-0 top-6 right-10 px-4 py-2 bg-accent text-primary-light font-semibold rounded-sm">
-                            Hot
-                        </span>
-                        <span className="mx-2 xl:mx-0 top-6 right-10 px-4 py-2 bg-lime-500 text-primary-light font-semibold rounded-sm">
-                            Đang chiếu
-                        </span>
-                        <span className="mx-2 xl:mx-0 top-6 right-10 px-4 py-2 bg-sky-500 text-primary-light font-semibold rounded-sm">
-                            Sắp chiếu
-                        </span>
+
+                        {movie.hot ? (
+                            <span className="mx-2 xl:mx-0 top-6 right-10 px-4 py-2 bg-accent text-primary-light font-semibold rounded-sm">
+                                Hot
+                            </span>
+                        ) : null}
+
+                        {movie.dangChieu ? (
+                            <span className="mx-2 xl:mx-0 top-6 right-10 px-4 py-2 bg-lime-500 text-primary-light font-semibold rounded-sm">
+                                Đang chiếu
+                            </span>
+                        ) : null}
+
+                        {movie.sapChieu ? (
+                            <span className="mx-2 xl:mx-0 top-6 right-10 px-4 py-2 bg-sky-500 text-primary-light font-semibold rounded-sm">
+                                Sắp chiếu
+                            </span>
+                        ) : null}
                     </div>
                     <div>
                         <p className="py-1">
                             <span className="font-bold">Ngày công chiếu:</span>
-                            <span> 12/02/2021</span>
+                            <span>
+                                {" " +
+                                    new Date(
+                                        movie.ngayKhoiChieu
+                                    ).toLocaleDateString()}
+                            </span>
                         </p>
                         <p className="py-1">
                             <span className="font-bold">Đánh giá:</span>
-                            <span> 10/10</span>
+                            <span> {movie.danhGia}/10</span>
                         </p>
                         <p className="py-1">
-                            <span className="font-bold">Nội dung: </span>
+                            <span className="font-bold">Nội dung:</span>
                             <span className="text-sm">
-                                Lat Mat 48H là câu chuyện về cuộc hành trình đầy
-                                hấp dẫ ngoài giờ làm việc của anh chàng nhân
-                                viên văn phòng Lâm Vỹ Dạ.
+                                {movie.moTa && movie.moTa.length > 200
+                                    ? " " + movie.moTa.slice(0, 200) + "..."
+                                    : " " + movie.moTa}
                             </span>
                         </p>
                     </div>
                     <div className="mt-8">
-                        <h3 className="text-xl font-bold p-2">
-                            Chọn hệ thống rạp
-                        </h3>
-                        <div className="bg-primary-light rounded-lg p-4">
-                            <ul className="flex gap-6">
-                                <li className="py-1">
-                                    <button>
-                                        <img
-                                            className="w-10"
-                                            src="https://movienew.cybersoft.edu.vn/hinhanh/cgv.png"
-                                            alt="CGV"
-                                        />
-                                    </button>
-                                </li>
-                                <li className="py-1">
-                                    <button>
-                                        <img
-                                            className="w-10"
-                                            src="https://movienew.cybersoft.edu.vn/hinhanh/lotte-cinema.png"
-                                            alt="Lotte"
-                                        />
-                                    </button>
-                                </li>
-                                <li className="py-1">
-                                    <button>
-                                        <img
-                                            className="w-10"
-                                            src="https://movienew.cybersoft.edu.vn/hinhanh/bhd-star-cineplex.png"
-                                            alt="BHD"
-                                        />
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                        <h3 className="text-xl font-bold p-2 mt-4">Chọn rạp</h3>
-                        <div className="bg-primary-light mt-2 md:mt-0 rounded-lg px-4 py-2">
-                            <ul className="grid grid-cols-3 grid-rows-2 gap-2">
-                                <li className="py-1">
-                                    <button className="w-full py-2 px-1 bg-slate-50 text-primary-light text-sm font-bold md:hover:bg-slate-400 md:hover:transition md:duration-500 rounded-lg">
-                                        BHD Star Cineplex - 3/2
-                                    </button>
-                                </li>
-                                <li className="py-1">
-                                    <button className="w-full py-2 px-1 bg-slate-50 text-primary-light text-sm font-bold md:hover:bg-slate-400 md:hover:transition md:duration-500 rounded-lg">
-                                        BHD Star Vincom
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                        <h3 className="text-xl font-bold p-2 mt-4">
-                            Chọn giờ xem
-                        </h3>
-                        <div className="bg-primary-light mt-2 md:mt-0 rounded-lg px-4 py-2">
-                            <ul className="grid grid-cols-3 md:grid-cols-6 grid-rows-3 gap-2">
-                                <li className="py-1">
-                                    <button className="w-full bg-slate-50 md:hover:bg-slate-400 md:hover:transition md:duration-500  text-primary-light font-bold rounded-lg py-2">
-                                        22h50
-                                    </button>
-                                </li>
-                                <li className="py-1">
-                                    <button className="w-full bg-slate-50 md:hover:bg-slate-400 md:hover:transition md:duration-500  text-primary-light font-bold rounded-lg py-2">
-                                        23h50
-                                    </button>
-                                </li>
-                                <li className="py-1">
-                                    <button className="w-full bg-slate-50 md:hover:bg-slate-400 md:hover:transition md:duration-500  text-primary-light font-bold rounded-lg py-2">
-                                        1h50
-                                    </button>
-                                </li>
-                                <li className="py-1">
-                                    <button className="w-full bg-slate-50 md:hover:bg-slate-400 md:hover:transition md:duration-500  text-primary-light font-bold rounded-lg py-2">
-                                        2h50
-                                    </button>
-                                </li>
-                                <li className="py-1">
-                                    <button className="w-full bg-slate-50 md:hover:bg-slate-400 md:hover:transition md:duration-500  text-primary-light font-bold rounded-lg py-2">
-                                        3h50
-                                    </button>
-                                </li>
-                                <li className="py-1">
-                                    <button className="w-full bg-slate-50 md:hover:bg-slate-400 md:hover:transition md:duration-500  text-primary-light font-bold rounded-lg py-2">
-                                        4h50
-                                    </button>
-                                </li>
-                                <li className="py-1">
-                                    <button className="w-full bg-slate-50 md:hover:bg-slate-400 md:hover:transition md:duration-500  text-primary-light font-bold rounded-lg py-2">
-                                        4h50
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
+                        {cinemaSystemList?.length ? (
+                            <CinemaSystemSelector
+                                cinemaSystemList={cinemaSystemList}
+                                cinemaSystemSelected={cinemaSystemSelected}
+                            />
+                        ) : null}
+
+                        {cinemaList?.length ? (
+                            <CinemaSelector
+                                cinemaList={cinemaList}
+                                selectedCinema={selectedCinema}
+                            />
+                        ) : null}
+
+                        {watchTimeList?.length ? (
+                            <WatchTimesSelector
+                                watchTimeList={watchTimeList}
+                                selectedWatchTime={selectedWatchTime}
+                            />
+                        ) : null}
                     </div>
                     <div className="flex justify-around md:justify-normal">
                         <Link
-                            to={`/booking/123`}
-                            className="px-6 py-2 mt-8 md:mr-4 inline-block font-bold text-xl md:text-2xl rounded-lg bg-secondary"
+                            to={
+                                selectedWatchTime
+                                    ? `/booking/${selectedWatchTime}`
+                                    : "#"
+                            }
+                            className={`px-6 py-2 mt-8 md:mr-4 inline-block font-bold text-xl md:text-2xl rounded-lg bg-secondary ${
+                                selectedWatchTime
+                                    ? ""
+                                    : "bg-slate-500 text-slate-900 cursor-not-allowed"
+                            }`}
                         >
                             Đặt vé ngay
                         </Link>
@@ -217,17 +207,16 @@ export default function MovieDetail() {
                 <MoviesCarousel
                     label="Phim Hot"
                     wrapperClass="container mx-auto py-10 px-8 md:px-4 md:px-0"
-                    movies={moviesShowingCarousel}
+                    movies={hotMovies}
                 />
             </div>
 
             {/* Trailer modal */}
-            {showModal && (
-                <MovieTrailerModal
-                    trailerSrc="https://www.youtube.com/watch?v=kBY2k3G6LsM"
-                    handleCloseShowModal={handleCloseShowModal}
-                />
-            )}
+            <MovieTrailerModal
+                modalIntance={trailerModal}
+                modalShowing={modalShowing}
+                trailerSrc="https://www.youtube.com/watch?v=kBY2k3G6LsM"
+            />
         </div>
     );
 }
