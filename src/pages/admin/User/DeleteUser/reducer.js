@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import api from "../../../../utils/api/adminApi"
+import { fetchListUsers } from "../ListUser/reducer";
 
 export const deleteUser = createAsyncThunk("user/deleteUser", async(taiKhoan, {rejectWithValue})=>{
     try {
-        const result = await api.delete(`/QuanLyNguoiDung/XoaNguoiDung`, taiKhoan);
-        return result.data.content;
+    const response = await api.delete(`/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`);
+    fetchListUsers();
+    return response.data;
     } catch (e) {
         return rejectWithValue(e.response);
     }
