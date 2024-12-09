@@ -3,7 +3,7 @@ import api from "../../../../utils/api/adminApi"
 
 export const updateUser = createAsyncThunk("user/updateUser", async(user, {rejectWithValue})=>{
     try {
-        const result = await api.delete(`/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,user);
+        const result = await api.put(`/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,user);
         return result.data;
     } catch (e) {
         return rejectWithValue(e.response);
