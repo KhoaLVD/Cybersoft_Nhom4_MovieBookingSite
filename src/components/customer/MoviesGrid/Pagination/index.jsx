@@ -35,7 +35,9 @@ export default function Pagination() {
             let itemHtml = (
                 <button
                     key={i}
-                    className="bg-secondary-dark text-white py-2 px-4 rounded-lg"
+                    className={`text-white py-2 px-4 rounded-lg ${
+                        page == i ? "bg-secondary" : "bg-secondary-dark"
+                    }`}
                     onClick={() => {
                         setSearchParams((prev) => {
                             prev.set("p", i);

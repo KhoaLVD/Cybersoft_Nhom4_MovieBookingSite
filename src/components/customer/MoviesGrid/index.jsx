@@ -20,8 +20,12 @@ export default function MoviesGrid({ movies }) {
                 key={movie.maPhim}
                 className="flex flex-col shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]"
             >
-                <div className="relative">
-                    <img className="rounded-t-lg" src={movie.hinhAnh} alt="" />
+                <div className="relative h-full">
+                    <img
+                        className="rounded-t-lg h-full"
+                        src={movie.hinhAnh}
+                        alt=""
+                    />
                     {movie.hot ? (
                         <span className="absolute mx-2 xl:mx-0 top-2 right-2 px-1 py-1 bg-accent text-primary-light text-sm font-semibold rounded-lg">
                             Hot
@@ -46,9 +50,13 @@ export default function MoviesGrid({ movies }) {
 
     return (
         <section className="flex-[0.7] px-4 md:mx-auto">
-            <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-5 gap-x-6 gap-y-4 md:gap-6">
-                {moviesList}
-            </div>
+            {moviesList.length ? (
+                <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-5 gap-x-6 gap-y-4 md:gap-6">
+                    {moviesList}
+                </div>
+            ) : (
+                <p>Không tìm thấy bộ phim nào!</p>
+            )}
             {isShowPagination() ? <Pagination /> : ""}
         </section>
     );
