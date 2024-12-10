@@ -11,7 +11,7 @@ export default function Pagination() {
 
     const handleNextOrPrev = (type) => {
         setSearchParams((prev) => {
-            const currentPage = parseInt(prev.get("p"));
+            const currentPage = parseInt(prev.get("p") ? prev.get("p") : 1);
             if (type === "next") {
                 prev.set("p", currentPage + 1);
             } else if (type === "prev") {

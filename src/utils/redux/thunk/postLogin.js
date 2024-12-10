@@ -10,7 +10,7 @@ export const postLogin = createAsyncThunk(
             });
             return response.data.content;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
+            return thunkAPI.rejectWithValue(error.response.data.content);
         }
     }
 );

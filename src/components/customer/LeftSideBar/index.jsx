@@ -1,11 +1,16 @@
 import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function LeftSideBar() {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const currentLoaiPhim = searchParams.get("loaiPhim")
-        ? searchParams.get("loaiPhim")
-        : "all";
+    let [currentLoaiPhim, setCurrentLoaiPhim] = useState("all");
+
+    useEffect(() => {
+        setCurrentLoaiPhim(
+            searchParams.get("loaiPhim") ? searchParams.get("loaiPhim") : "all"
+        );
+    }, [searchParams]);
 
     return (
         <aside className="md:flex-[0.2] py-6 px-2 md:px-10 md:mx-auto md:shadow-[0_35px_60px_10px_rgba(0,0,0,0.3)]">
@@ -16,7 +21,7 @@ export default function LeftSideBar() {
             <nav className="flex flex-col items-center">
                 <select
                     className="text-gray-800"
-                    defaultValue={currentLoaiPhim}
+                    value={currentLoaiPhim}
                     onChange={(e) => {
                         setSearchParams((prev) => {
                             prev.set("loaiPhim", e.target.value);

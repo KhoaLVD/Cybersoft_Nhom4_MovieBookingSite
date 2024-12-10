@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { fetchPaginationMovie } from "@/utils/redux/thunk/fetchMovies";
 import LeftSideBar from "@/components/customer/LeftSideBar";
 import MoviesGrid from "@/components/customer/MoviesGrid";
+import Spinner from "@/components/customer/Spinner";
 
 export default function Movies() {
     const dispatch = useDispatch();
@@ -37,8 +38,8 @@ export default function Movies() {
 
     return (
         <div className="bg-zinc-800 flex flex-col md:flex-row px-2 py-4 md:py-10 md:px-6 md:max-w-screen-2xl 2xl:mx-auto">
-            <LeftSideBar />
-            {isLoading ? <div>Loading...</div> : <MoviesGrid movies={movies} />}
+            <LeftSideBar loaiPhim={loaiPhim} />
+            {isLoading ? <Spinner /> : <MoviesGrid movies={movies} />}
         </div>
     );
 }

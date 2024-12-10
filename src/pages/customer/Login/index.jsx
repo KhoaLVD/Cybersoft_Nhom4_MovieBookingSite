@@ -1,39 +1,31 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postLogin } from "@/utils/redux/thunk/postLogin";
-import { use } from "react";
+import { useCustomerLoggedIn } from "@/utils/context/customerContext";
 
 export default function Login() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const { customer, login } = useCustomerLoggedIn();
+
+    if (customer && customer.email) {
+        return <Navigate to="/" replace />;
+    }
+
+    const customerResponse = useSelector(
+        (state) => state.postLoginReducer.data
+    );
+
     useEffect(() => {
-        const isLogged = localStorage.getItem("CUSTOMER_LOGGED")
-            ? JSON.parse(localStorage.getItem("CUSTOMER_LOGGED")).email
-            : "";
-        if (isLogged) {
+        if (customerResponse.accessToken) {
+            login(customerResponse);
             navigate("/");
         }
-    });
+    }, [customerResponse]);
 
-    const dispatch = useDispatch();
-
-    const loginResponse = useSelector((state) => state.postLoginReducer);
-
-    let logginSuccess = false;
-
-    if (loginResponse) {
-        logginSuccess =
-            loginResponse.loginSuccess && loginResponse.data.accessToken;
-    }
-
-    if (logginSuccess) {
-        localStorage.setItem(
-            "CUSTOMER_LOGGED",
-            JSON.stringify(loginResponse.data)
-        );
-        navigate("/");
-    }
+    const errorResponse = useSelector((state) => state.postLoginReducer.error);
 
     let ndDN = {
         taiKhoan: "",
@@ -47,6 +39,9 @@ export default function Login() {
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                        {errorResponse && (
+                            <p className="text-red-500">{errorResponse}</p>
+                        )}
                         <form className="space-y-4 md:space-y-6" action="#">
                             <div>
                                 <label

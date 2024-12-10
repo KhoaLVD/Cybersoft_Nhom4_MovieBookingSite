@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import renderRoutes from "./routes";
 import Spinner from "@/components/customer/Spinner";
 import "./App.scss";

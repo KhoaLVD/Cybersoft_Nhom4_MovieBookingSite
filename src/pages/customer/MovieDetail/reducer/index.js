@@ -55,6 +55,11 @@ export const customerMovieDetailPageMoviewShowTimes = createSlice({
             state.selectedWatchTime = null;
             state.selectedWatchTime = action.payload;
         },
+        clear: (state) => {
+            state.selectedCinemaSystem = null;
+            state.selectedCinema = null;
+            state.selectedWatchTime = null;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchMovieShowTimes.pending, (state) => {
@@ -74,5 +79,5 @@ export const customerMovieDetailPageMoviewShowTimes = createSlice({
 export const customerMovieDetailPageMoviewShowTimesReducer =
     customerMovieDetailPageMoviewShowTimes.reducer;
 
-export const { selectCinemaSystem, selectCinema, selectWatchTime } =
+export const { selectCinemaSystem, selectCinema, selectWatchTime, clear } =
     customerMovieDetailPageMoviewShowTimes.actions;
