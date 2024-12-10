@@ -18,13 +18,20 @@ export default function UpdateUser() {
 
   const formik = useFormik({
     initialValues: {
-        taiKhoan: `${props.data.taiKhoan}`,
-            matKhau: `${props.data.matKhau}`,
-            email: `${props.data.email}`,
-            soDt: `${props.data.soDt}`,
-            maNhom: `${props.data.maNhom}`,
-            maLoaiNguoiDung: `${props.data.maLoaiNguoiDung}`,
-            hoTen: `${props.data.hoTen}`,
+        // taiKhoan: `${props.data.taiKhoan}`,
+        // matKhau: `${props.data.matKhau}`,
+        // email: `${props.data.email}`,
+        // soDt: `${props.data.soDt}`,
+        // maNhom: `${props.data.maNhom}`,
+        // maLoaiNguoiDung: `${props.data.maLoaiNguoiDung}`,
+        // hoTen: `${props.data.hoTen}`,
+        taiKhoan: "",
+            matKhau: "",
+            email: "",
+            soDt: "",
+            maNhom: "GP03",
+            maLoaiNguoiDung: "",
+            hoTen: ""
     },
     validationSchema: Yup.object({
         taiKhoan: Yup.string()
@@ -42,9 +49,22 @@ export default function UpdateUser() {
     }),
     onSubmit: (values) => {
         dispatch(updateUser(values));
-        // navigate(-1);
+        navigate("/admin/list-user");
     }
 })
+    useEffect(()=>{
+        if(props.data){
+            formik.setValues({
+                taiKhoan: props.data.taiKhoan,
+                matKhau: props.data.matKhau,
+                email: props.data.email,
+                soDt: props.data.soDt,
+                maNhom: props.data.maNhom,
+                maLoaiNguoiDung: props.data.maLoaiNguoiDung,
+                hoTen: props.data.hoTen
+            })
+        }
+    }, [props.data])
 
   return (
     <div className="p-4 sm:ml-64">
