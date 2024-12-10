@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Modal } from "flowbite";
 import { fetchMovieById } from "@/utils/redux/thunk/fetchMovieById";
@@ -10,65 +10,76 @@ import CinemaSelector from "@/components/customer/MovieDetail/CinemaSelector";
 import WatchTimesSelector from "@/components/customer/MovieDetail/WatchTimesSelector";
 import MoviesCarousel from "@/components/customer/MoviesCarousel";
 import MovieTrailerModal from "@/components/customer/MovieTrailerModal";
+import Spinner from "@/components/customer/Spinner";
 
 export default function MovieDetail() {
     const dispatch = useDispatch();
 
-    // Fetch movie by ID
     const response = useSelector((state) => state.customerMovieDetailPage);
-
     const movie = response.data;
 
-    // Get movie ID from URL
-    let { id } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         dispatch(fetchMovieById(id));
         dispatch(fetchMovieShowTimes(id));
         dispatch(fetchMovies("GP01"));
-    }, []);
+    }, [dispatch, id]);
 
     const showTimesRes = useSelector(
         (state) => state.customerMovieDetailPageMoviewShowTimesReducer.data
     );
 
+    const showTimesLoading = useSelector(
+        (state) => state.customerMovieDetailPageMoviewShowTimesReducer.loading
+    );
+
     const cinemaSystemList = showTimesRes ? showTimesRes.heThongRapChieu : [];
+    const [cinemaList, setCinemaList] = useState([]);
+    const [watchTimes, setWatchTimes] = useState([]);
+    const [selectedCinemaSystem, setSelectedCinemaSystem] = useState(null);
+    const [selectedCinema, setSelectedCinema] = useState(null);
+    const [selectedWatchTime, setSelectedWatchTime] = useState(null);
 
-    const cinemaSystemSelected = useSelector(
-        (state) =>
-            state.customerMovieDetailPageMoviewShowTimesReducer
-                .selectedCinemaSystem
+    const handleCinemaSystemChange = useCallback(
+        (cinemaSystem) => {
+            const selectedCinemaSystemFinded = cinemaSystemList.find(
+                (system) => system.maHeThongRap === cinemaSystem
+            );
+            setSelectedCinemaSystem(selectedCinemaSystemFinded?.maHeThongRap);
+            setCinemaList(selectedCinemaSystemFinded?.cumRapChieu || []);
+            setWatchTimes([]);
+        },
+        [cinemaSystemList]
     );
 
-    let cinemaList = [];
-    if (cinemaSystemSelected) {
-        const cinemaListRes = cinemaSystemList.find((cinemaSystem) => {
-            return cinemaSystem.maHeThongRap === cinemaSystemSelected;
-        });
-        cinemaList = cinemaListRes ? cinemaListRes.cumRapChieu : [];
-    }
-
-    const selectedCinema = useSelector(
-        (state) =>
-            state.customerMovieDetailPageMoviewShowTimesReducer.selectedCinema
+    const handleCinemaChange = useCallback(
+        (cinema) => {
+            const selectedCinemaFinded = cinemaList.find(
+                (cin) => cin.maCumRap === cinema
+            );
+            setSelectedCinema(selectedCinemaFinded?.maCumRap);
+            setWatchTimes(selectedCinemaFinded?.lichChieuPhim || []);
+        },
+        [cinemaList]
     );
 
-    let watchTimeList = [];
-    if (cinemaSystemSelected && selectedCinema) {
-        const watchTimeListRes = cinemaList.find((cinema) => {
-            return cinema.maCumRap === selectedCinema;
-        });
-        watchTimeList = watchTimeListRes ? watchTimeListRes.lichChieuPhim : [];
-    }
-
-    const selectedWatchTime = useSelector(
-        (state) =>
-            state.customerMovieDetailPageMoviewShowTimesReducer
-                .selectedWatchTime
+    const handleWatchTimeChange = useCallback(
+        (watchTime) => {
+            const selectedWatchTimeFinded = watchTimes.find(
+                (time) => time.maLichChieu === watchTime
+            );
+            setSelectedWatchTime(selectedWatchTimeFinded?.maLichChieu);
+        },
+        [watchTimes]
     );
 
     const hotMoviesRes = useSelector(
         (state) => state.customerMoviesListPage.data
+    );
+
+    let hotMovieLoading = useSelector(
+        (state) => state.customerMoviesListPage.loading
     );
 
     const hotMovies = hotMoviesRes.filter(
@@ -86,17 +97,15 @@ export default function MovieDetail() {
         },
     };
 
-    const instanceOptions = {
-        id: "trailer-modal",
-        override: true,
-    };
+    const modalElement = document.querySelector("#trailer-modal");
 
-    const $modalElement = document.querySelector("#trailer-modal");
-
-    const trailerModal = new Modal(
-        $modalElement,
-        modalOptions,
-        instanceOptions
+    const trailerModal = useMemo(
+        () =>
+            new Modal(modalElement, modalOptions, {
+                id: "trailer-modal",
+                override: true,
+            }),
+        [modalElement]
     );
 
     return (
@@ -162,28 +171,37 @@ export default function MovieDetail() {
                             </span>
                         </p>
                     </div>
-                    <div className="mt-8">
-                        {cinemaSystemList?.length ? (
-                            <CinemaSystemSelector
-                                cinemaSystemList={cinemaSystemList}
-                                cinemaSystemSelected={cinemaSystemSelected}
-                            />
-                        ) : null}
 
-                        {cinemaList?.length ? (
-                            <CinemaSelector
-                                cinemaList={cinemaList}
-                                selectedCinema={selectedCinema}
-                            />
-                        ) : null}
+                    {showTimesLoading ? (
+                        <Spinner />
+                    ) : (
+                        <div className="mt-8">
+                            {cinemaSystemList?.length ? (
+                                <CinemaSystemSelector
+                                    cinemaSystemList={cinemaSystemList}
+                                    selectedCinemaSystem={selectedCinemaSystem}
+                                    onClick={handleCinemaSystemChange}
+                                />
+                            ) : null}
 
-                        {watchTimeList?.length ? (
-                            <WatchTimesSelector
-                                watchTimeList={watchTimeList}
-                                selectedWatchTime={selectedWatchTime}
-                            />
-                        ) : null}
-                    </div>
+                            {cinemaList?.length ? (
+                                <CinemaSelector
+                                    cinemaList={cinemaList}
+                                    selectedCinema={selectedCinema}
+                                    onClick={handleCinemaChange}
+                                />
+                            ) : null}
+
+                            {watchTimes?.length ? (
+                                <WatchTimesSelector
+                                    watchTimeList={watchTimes}
+                                    selectedWatchTime={selectedWatchTime}
+                                    onClick={handleWatchTimeChange}
+                                />
+                            ) : null}
+                        </div>
+                    )}
+
                     <div className="flex justify-around md:justify-normal">
                         <Link
                             to={
@@ -194,7 +212,7 @@ export default function MovieDetail() {
                             className={`px-6 py-2 mt-8 md:mr-4 inline-block font-bold text-xl md:text-2xl rounded-lg bg-secondary ${
                                 selectedWatchTime
                                     ? ""
-                                    : "bg-slate-500 text-slate-900 cursor-not-allowed"
+                                    : "bg-slate-400 cursor-not-allowed"
                             }`}
                         >
                             Đặt vé ngay
@@ -204,18 +222,22 @@ export default function MovieDetail() {
             </div>
             <div className="mt-10">
                 {/* Hot Movies */}
-                <MoviesCarousel
-                    label="Phim Hot"
-                    wrapperClass="container mx-auto py-10 px-8 md:px-4 md:px-0"
-                    movies={hotMovies}
-                />
+                {hotMovieLoading ? (
+                    <Spinner />
+                ) : (
+                    <MoviesCarousel
+                        label="Phim Hot"
+                        wrapperClass="container mx-auto py-10 px-8 md:px-4 md:px-0"
+                        movies={hotMovies}
+                    />
+                )}
             </div>
 
             {/* Trailer modal */}
             <MovieTrailerModal
                 modalIntance={trailerModal}
                 modalShowing={modalShowing}
-                trailerSrc="https://www.youtube.com/watch?v=kBY2k3G6LsM"
+                trailerSrc={movie.trailer}
             />
         </div>
     );

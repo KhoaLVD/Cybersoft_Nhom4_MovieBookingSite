@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 export default function Home() {
     // Get movies showing
     const [movies, setMovies] = useState([]);
+    const [showingMovies, setShowingMovies] = useState([]);
+    const [hotMovies, setHotMovies] = useState([]);
+
     useEffect(() => {
         const fetchMovies = async () => {
             try {
@@ -23,9 +26,10 @@ export default function Home() {
         fetchMovies();
     }, []);
 
-    let showingMovies = movies.filter((movie) => movie.dangChieu);
-
-    let hotMovies = movies.filter((movie) => movie.hot);
+    useEffect(() => {
+        setShowingMovies(movies.filter((movie) => movie.dangChieu));
+        setHotMovies(movies.filter((movie) => movie.hot));
+    }, [movies]);
 
     return (
         <>

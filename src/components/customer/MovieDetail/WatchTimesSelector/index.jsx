@@ -1,12 +1,8 @@
-import { selectWatchTime } from "@/pages/customer/MovieDetail/reducer";
-import { useDispatch } from "react-redux";
-
 export default function WatchTimesSelector({
     watchTimeList,
     selectedWatchTime,
+    onClick,
 }) {
-    const dispatch = useDispatch();
-
     const watchTimeListHtml = watchTimeList.map((watchTime) => {
         return (
             <li key={watchTime.maLichChieu} className="py-1">
@@ -17,9 +13,7 @@ export default function WatchTimesSelector({
                             ? "bg-slate-400 border-4 border-lime-500"
                             : ""
                     }`}
-                    onClick={() =>
-                        dispatch(selectWatchTime(watchTime.maLichChieu))
-                    }
+                    onClick={() => onClick(watchTime.maLichChieu)}
                 >
                     {new Date(watchTime.ngayChieuGioChieu).toLocaleString()}
                 </button>

@@ -1,31 +1,23 @@
-import { selectCinemaSystem } from "@/pages/customer/MovieDetail/reducer";
-import { useDispatch } from "react-redux";
-
 export default function CinemaSystemSelector({
     cinemaSystemList,
-    cinemaSystemSelected,
+    selectedCinemaSystem,
+    onClick,
 }) {
-    const dispatch = useDispatch();
-
     const cinemaSystemListHtml = cinemaSystemList.map((cinemaSystem) => {
         return (
             <li
                 key={cinemaSystem.maHeThongRap}
                 className="py-1 flex flex-col items-center"
             >
-                <button
-                    onClick={() =>
-                        dispatch(selectCinemaSystem(cinemaSystem.maHeThongRap))
-                    }
-                >
+                <button onClick={() => onClick(cinemaSystem.maHeThongRap)}>
                     <img
                         className="w-10"
                         src={cinemaSystem.logo}
                         alt={cinemaSystem.tenHeThongRap}
                     />
                 </button>
-                {cinemaSystemSelected &&
-                cinemaSystemSelected == cinemaSystem.maHeThongRap ? (
+                {selectedCinemaSystem &&
+                selectedCinemaSystem == cinemaSystem.maHeThongRap ? (
                     <i className="fa-solid fa-caret-up"></i>
                 ) : null}
             </li>
