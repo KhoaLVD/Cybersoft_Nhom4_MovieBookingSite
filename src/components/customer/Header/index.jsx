@@ -1,6 +1,9 @@
 import { NavLink, Link } from "react-router-dom";
 
 export default function Header() {
+    const isLogged = localStorage.getItem("CUSTOMER_LOGGED")
+        ? JSON.parse(localStorage.getItem("CUSTOMER_LOGGED")).email
+        : "";
     return (
         <header className="bg-primary-light p-4">
             <nav>
@@ -66,33 +69,55 @@ export default function Header() {
                             </li>
                         </ul>
                         <div className="flex gap-5 mt-5 md:hidden md:mt-0">
-                            <Link
-                                to="/login"
-                                className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
-                            >
-                                Đăng nhập
-                            </Link>
-                            <Link
-                                to="/register"
-                                className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
-                            >
-                                Đăng ký
-                            </Link>
+                            {isLogged ? (
+                                <Link
+                                    to="/profile"
+                                    className="text-red-700 px-4 py-2 hover:text-secondary-dark"
+                                >
+                                    {isLogged}
+                                </Link>
+                            ) : (
+                                <>
+                                    <Link
+                                        to="/login"
+                                        className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
+                                    >
+                                        Đăng nhập
+                                    </Link>
+                                    <Link
+                                        to="/register"
+                                        className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
+                                    >
+                                        Đăng ký
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     </div>
                     <div className="hidden md:flex md:gap-5 md:order-3">
-                        <Link
-                            to="/login"
-                            className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
-                        >
-                            Đăng nhập
-                        </Link>
-                        <Link
-                            to="/register"
-                            className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
-                        >
-                            Đăng ký
-                        </Link>
+                        {isLogged ? (
+                            <Link
+                                to="/profile"
+                                className="text-red-700 px-4 py-2 hover:text-secondary-dark"
+                            >
+                                {isLogged}
+                            </Link>
+                        ) : (
+                            <>
+                                <Link
+                                    to="/login"
+                                    className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
+                                >
+                                    Đăng nhập
+                                </Link>
+                                <Link
+                                    to="/register"
+                                    className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
+                                >
+                                    Đăng ký
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </nav>

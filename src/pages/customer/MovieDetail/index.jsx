@@ -194,7 +194,7 @@ export default function MovieDetail() {
                             className={`px-6 py-2 mt-8 md:mr-4 inline-block font-bold text-xl md:text-2xl rounded-lg bg-secondary ${
                                 selectedWatchTime
                                     ? ""
-                                    : "bg-slate-500 text-slate-900 cursor-not-allowed"
+                                    : "bg-slate-400 cursor-not-allowed"
                             }`}
                         >
                             Đặt vé ngay

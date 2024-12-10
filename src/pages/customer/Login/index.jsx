@@ -1,6 +1,47 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { postLogin } from "@/utils/redux/thunk/postLogin";
+import { use } from "react";
 
 export default function Login() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const isLogged = localStorage.getItem("CUSTOMER_LOGGED")
+            ? JSON.parse(localStorage.getItem("CUSTOMER_LOGGED")).email
+            : "";
+        if (isLogged) {
+            navigate("/");
+        }
+    });
+
+    const dispatch = useDispatch();
+
+    const loginResponse = useSelector((state) => state.postLoginReducer);
+
+    let logginSuccess = false;
+
+    if (loginResponse) {
+        logginSuccess =
+            loginResponse.loginSuccess && loginResponse.data.accessToken;
+    }
+
+    if (logginSuccess) {
+        localStorage.setItem(
+            "CUSTOMER_LOGGED",
+            JSON.stringify(loginResponse.data)
+        );
+        navigate("/");
+    }
+
+    let ndDN = {
+        taiKhoan: "",
+        matKhau: "",
+    };
+
+    const [user, setUser] = useState(ndDN);
+
     return (
         <section className="bg-primary">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -21,6 +62,12 @@ export default function Login() {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                     placeholder="nguyenvana"
                                     required
+                                    onInput={(e) => {
+                                        setUser({
+                                            ...user,
+                                            taiKhoan: e.target.value,
+                                        });
+                                    }}
                                 />
                             </div>
                             <div>
@@ -37,11 +84,21 @@ export default function Login() {
                                     placeholder="••••••••"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                     required
+                                    onInput={(e) => {
+                                        setUser({
+                                            ...user,
+                                            matKhau: e.target.value,
+                                        });
+                                    }}
                                 />
                             </div>
                             <button
                                 type="submit"
                                 className="w-full text-primary bg-secondary hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    dispatch(postLogin(user));
+                                }}
                             >
                                 Đăng nhập
                             </button>
