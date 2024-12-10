@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postRegister } from "@/utils/redux/thunk/postRegister";
+import Spinner from "@/components/customer/Spinner";
 
 export default function Register() {
     const dispatch = useDispatch();
 
-    let nd = {
+    const initialUserState = {
         taiKhoan: "",
         matKhau: "",
         email: "",
@@ -15,24 +16,38 @@ export default function Register() {
         hoTen: "",
     };
 
-    const [user, setUser] = useState(nd);
+    const [user, setUser] = useState(initialUserState);
 
-    const registerResponse = useSelector((state) => state.postRegisterReducer);
+    const error = useSelector((state) => state.postRegisterReducer.error);
+    const registerResponse = useSelector(
+        (state) => state.postRegisterReducer.data
+    );
+    const isLoading = useSelector((state) => state.postRegisterReducer.loading);
 
-    let registerSuccess = false;
+    const [registerSuccess, setRegisterSuccess] = useState(false);
 
-    if (registerResponse) {
-        registerSuccess =
-            registerResponse.registerSuccess && registerResponse.data.email;
-    }
+    useEffect(() => {
+        if (registerResponse.email) {
+            setRegisterSuccess(true);
+            setUser(initialUserState);
+        }
+    }, [registerResponse]);
 
-    if (registerSuccess) {
-        setUser(nd);
-    }
+    const handleInputChange = useCallback((e) => {
+        const { name, value } = e.target;
+        setUser((prevUser) => ({
+            ...prevUser,
+            [name]: value,
+        }));
+    }, []);
 
-    const isLoading = registerResponse.loading;
-
-    const error = registerResponse.error;
+    const handleSubmit = useCallback(
+        (e) => {
+            e.preventDefault();
+            dispatch(postRegister(user));
+        },
+        [dispatch, user]
+    );
 
     return (
         <>
@@ -43,7 +58,10 @@ export default function Register() {
                             {error && <p className="text-red-500">{error}</p>}
                             {registerSuccess && (
                                 <p className="text-green-500">
-                                    Đăng ký thành công
+                                    Đăng ký thành công.{" "}
+                                    <Link className="underline" to="/login">
+                                        Đăng nhập tại đây
+                                    </Link>
                                 </p>
                             )}
                             <h1 className="text-xl font-bold leading-tight tracking-tight text-secondary md:text-2xl">
@@ -59,17 +77,12 @@ export default function Register() {
                                     </label>
                                     <input
                                         type="text"
-                                        name="username"
+                                        name="taiKhoan"
                                         id="username"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         placeholder="nguyenvana"
                                         required
-                                        onInput={(e) => {
-                                            setUser({
-                                                ...user,
-                                                taiKhoan: e.target.value,
-                                            });
-                                        }}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <div>
@@ -81,17 +94,12 @@ export default function Register() {
                                     </label>
                                     <input
                                         type="password"
-                                        name="password"
+                                        name="matKhau"
                                         id="password"
                                         placeholder="••••••••"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         required
-                                        onInput={(e) => {
-                                            setUser({
-                                                ...user,
-                                                matKhau: e.target.value,
-                                            });
-                                        }}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <div>
@@ -108,12 +116,7 @@ export default function Register() {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         placeholder="Nguyen Van A"
                                         required
-                                        onInput={(e) => {
-                                            setUser({
-                                                ...user,
-                                                hoTen: e.target.value,
-                                            });
-                                        }}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <div>
@@ -130,12 +133,7 @@ export default function Register() {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         placeholder="name@company.com"
                                         required
-                                        onInput={(e) => {
-                                            setUser({
-                                                ...user,
-                                                email: e.target.value,
-                                            });
-                                        }}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <div>
@@ -147,17 +145,12 @@ export default function Register() {
                                     </label>
                                     <input
                                         type="text"
-                                        name="phone-number"
+                                        name="soDt"
                                         id="phone-number"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         placeholder="0903123456"
                                         required
-                                        onInput={(e) => {
-                                            setUser({
-                                                ...user,
-                                                soDt: e.target.value,
-                                            });
-                                        }}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <div className="flex items-start">
@@ -188,10 +181,7 @@ export default function Register() {
                                 <button
                                     type="submit"
                                     className="w-full text-primary bg-secondary hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        dispatch(postRegister(user));
-                                    }}
+                                    onClick={handleSubmit}
                                 >
                                     Tạo tài khoản
                                 </button>
@@ -209,7 +199,7 @@ export default function Register() {
                     </div>
                 </div>
             </section>
-            {isLoading && <div>Loading...</div>}
+            {isLoading && <Spinner />}
         </>
     );
 }

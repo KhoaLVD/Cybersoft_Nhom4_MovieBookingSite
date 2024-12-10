@@ -4,7 +4,6 @@ import { postRegister } from "@/utils/redux/thunk/postRegister";
 const initialState = {
     loading: false,
     data: {},
-    registerSuccess: false,
     error: null,
 };
 
@@ -19,7 +18,6 @@ export const postRegisterReducer = createSlice({
         builder.addCase(postRegister.fulfilled, (state, action) => {
             state.loading = false;
             state.data = action.payload;
-            state.registerSuccess = true;
         });
         builder.addCase(postRegister.rejected, (state, action) => {
             state.loading = false;

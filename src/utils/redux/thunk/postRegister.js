@@ -8,7 +8,6 @@ export const postRegister = createAsyncThunk(
             const response = await api.post("/QuanLyNguoiDung/DangKy", {
                 ...nd,
             });
-            console.log(response);
             return response.data.content;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.content);

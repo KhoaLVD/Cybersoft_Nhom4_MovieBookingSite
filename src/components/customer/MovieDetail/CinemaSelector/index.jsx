@@ -1,8 +1,8 @@
-import { selectCinema } from "@/pages/customer/MovieDetail/reducer";
-import { useDispatch } from "react-redux";
-
-export default function CinemaSystemSelector({ cinemaList, selectedCinema }) {
-    const dispatch = useDispatch();
+export default function CinemaSystemSelector({
+    cinemaList,
+    selectedCinema,
+    onClick,
+}) {
     const cinemaListHtml = cinemaList.map((cinema) => {
         return (
             <li key={cinema.maCumRap} className="py-1">
@@ -12,7 +12,7 @@ export default function CinemaSystemSelector({ cinemaList, selectedCinema }) {
                             ? "bg-slate-400 border-4 border-lime-500"
                             : ""
                     }`}
-                    onClick={() => dispatch(selectCinema(cinema.maCumRap))}
+                    onClick={() => onClick(cinema.maCumRap)}
                 >
                     {cinema.tenCumRap}
                     <p className="block text-xs text-slate-600">
