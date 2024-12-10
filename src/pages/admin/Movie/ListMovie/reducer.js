@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import api from "../../../../utils/api/adminApi"
 
-export const updateUser = createAsyncThunk("user/updateUser", async(user, {rejectWithValue})=>{
+export const fetchListMovies = createAsyncThunk("listUsers/fetchListUsers", async  ()=>{
     try {
-        const result = await api.post(`/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,user);
+        const result = await api.get(`QuanLyPhim/LayDanhSachPhim?MaNhom=GP03`);
         return result.data.content;
     } catch (e) {
-        return rejectWithValue(e.response);
-    }
+        return (e);
+    }   
 })
 
 const initialState = {
@@ -16,23 +16,24 @@ const initialState = {
     error: null
 }
 
-const adminUpdateUserReducer = createSlice({
-    name: "adminUpdateUserReducer",
+const adminListMovieReducer = createSlice({
+    name: "adminListMovieReducer",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(updateUser.pending, (state) =>{
+        builder.addCase(fetchListMovies.pending, (state) =>{
             state.loading = true;
         });
-        builder.addCase(updateUser.fulfilled, (state, action) => {
+        builder.addCase(fetchListMovies.fulfilled, (state, action) => {
             state.loading = false;
             state.data = action.payload;
         } );
-        builder.addCase(updateUser.rejected, (state, action) =>{
+        builder.addCase(fetchListMovies.rejected, (state, action) =>{
             state.loading = false;
             state.error = action.payload;
         });
     }
+
 })
 
-export default adminUpdateUserReducer.reducer;
+export default adminListMovieReducer.reducer;
