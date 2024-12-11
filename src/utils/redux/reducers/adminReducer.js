@@ -8,6 +8,28 @@ import adminListMovieReducer from "@/pages/admin/Movie/ListMovie/reducer";
 import adminAddMovieReducer from "@/pages/admin/Movie/AddMovie/reducer";
 import adminDeleteMovieReducer from "@/pages/admin/Movie/DeleteMovie/reducer";
 
-export default { adminLoginReducer, adminListUserReducer, adminAddUserReducer, 
-    adminDeleteUserReducer, adminUpdateUserReducer, adminDetailUserReducer, 
-    adminListMovieReducer, adminAddMovieReducer, adminDeleteMovieReducer };
+
+
+import {
+    adminFetchMovieByIdReducer,
+    adminPostMovieSchedule,
+    adminFetchCinemaSystem,
+    adminFetchCinemaById,
+} from "@/pages/admin/Movie/AddMovieSchedule/reducer";
+
+export default {
+    adminLoginReducer,
+    adminListUserReducer,
+    adminAddUserReducer,
+    adminDeleteUserReducer,
+    adminUpdateUserReducer,
+    adminDetailUserReducer,
+    adminListMovieReducer,
+    adminAddMovieReducer,
+    adminDeleteMovieReducer,
+    adminFetchMovieByIdReducer,
+    adminPostMovieSchedule,
+    adminFetchCinemaSystem,
+    adminFetchCinemaById,
+};
+
