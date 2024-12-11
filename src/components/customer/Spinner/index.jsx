@@ -1,4 +1,6 @@
-export default function Spinner() {
+import { memo } from "react";
+
+function Spinner() {
     return (
         <div
             className="w-full flex flex-col justify-center items-center"
@@ -23,3 +25,5 @@ export default function Spinner() {
         </div>
     );
 }
+
+export default memo(Spinner);

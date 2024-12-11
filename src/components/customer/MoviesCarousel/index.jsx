@@ -74,7 +74,7 @@ export default function MoviesCarousel({ label, wrapperClass, movies }) {
             {moviesList.length ? (
                 <Slider {...slickSetting}>{moviesList}</Slider>
             ) : (
-                <p>Chưa có bộ phim nào</p>
+                <p className="text-center">Chưa có bộ phim nào</p>
             )}
         </section>
     );
