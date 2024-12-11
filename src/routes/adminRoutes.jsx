@@ -7,46 +7,50 @@ import ListUser from "@/pages/admin/User/ListUser/ListUser";
 import AddUser from "@/pages/admin/User/AddUser/AddUser";
 import UpdateUser from "@/pages/admin/User/UpdateUser/UpdateUser";
 import ListMovie from "@/pages/admin/Movie/ListMovie/ListMovie";
+import AddMovie from "@/pages/admin/Movie/AddMovie/AddMovie";
 
 const adminRoutes = {
-    path: "admin",
-    element: AdminTemplate,
-    children: [
-        {
-            path: "dashboard",
-            element: Dashboard,
-        },
-        {
-            path: "movie",
-            element: Movie,
-        },
-        {
-            path: "user",
-            element: User,
-           
-        },
-        {
-            path: "list-user",
-            element: ListUser,
-        },
-        {
-            path: "add-user",
-            element: AddUser,
-        },
-        {
-            path: "update-user/:id",
-            element: UpdateUser,
-        },
-        {
-            path: "list-movie",
-            element: ListMovie,
-        }
-    ],
+  path: "admin",
+  element: AdminTemplate,
+  children: [
+    {
+      path: "dashboard",
+      element: Dashboard,
+    },
+    {
+      path: "movie",
+      element: Movie,
+    },
+    {
+      path: "user",
+      element: User,
+    },
+    {
+      path: "list-user",
+      element: ListUser,
+    },
+    {
+      path: "add-user",
+      element: AddUser,
+    },
+    {
+      path: "update-user/:id",
+      element: UpdateUser,
+    },
+    {
+      path: "list-movie",
+      element: ListMovie,
+    },
+    {
+      path: "add-movie",
+      element: AddMovie,
+    },
+  ],
 };
 
 const authRoutes = {
-    path: "auth",
-    element: Auth,
+  path: "auth",
+  element: Auth,
 };
 
 export { adminRoutes, authRoutes };
