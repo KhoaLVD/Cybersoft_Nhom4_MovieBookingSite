@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
+import avatarIcon from "../../../../public/images/customer/user-default-avt.png";
 import { useCustomerAuth } from "@/utils/context/customerAuthContext";
 
 const customTheme = {
@@ -42,7 +43,7 @@ export default function Header() {
                         label={
                             <Avatar
                                 alt="User settings"
-                                img="https://static.thenounproject.com/png/5100711-200.png"
+                                img={avatarIcon}
                                 className="bg-secondary rounded-full"
                             />
                         }
