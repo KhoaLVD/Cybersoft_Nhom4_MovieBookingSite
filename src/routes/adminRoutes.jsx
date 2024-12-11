@@ -2,6 +2,7 @@ import Auth from "@/pages/admin/Auth/Auth";
 import AdminTemplate from "@/pages/admin";
 import Dashboard from "@/pages/admin/Dashboard/Dashboard";
 import Movie from "@/pages/admin/Movie/Movie";
+import AddMovieSchedule from "@/pages/admin/Movie/AddMovieSchedule";
 import User from "@/pages/admin/User/User";
 import ListUser from "@/pages/admin/User/ListUser/ListUser";
 import AddUser from "@/pages/admin/User/AddUser/AddUser";
@@ -20,6 +21,10 @@ const adminRoutes = {
     {
       path: "movie",
       element: Movie,
+    },
+    {
+      path: "add-movie-schedule/:id",
+      element: AddMovieSchedule,
     },
     {
       path: "user",
