@@ -1,17 +1,14 @@
-import { fetchListUsers } from "./reducer"
+import { fetchListMovies } from "./reducer"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
-
-import UserDetail from "./UserDetail"
-
-export default function ListUser() {
+import Movies from "./Movies"
+export default function ListMovie() {
     const dispatch = useDispatch()
-    const props = useSelector((state) => state.adminListUserReducer)
+    const props = useSelector((state)=>state.adminListMovieReducer);
 
     useEffect(()=>{
-        dispatch(fetchListUsers());
+        dispatch(fetchListMovies());
     }, [])
-
     if (props.loading) {
         return <div className="max-w-screen-md mx-auto items-center">      
           <div className="flex items-center justify-center w-56 h-56 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -22,42 +19,55 @@ export default function ListUser() {
           </div>
         </div>;
       }
-
-    const renderListUsers = () =>{
+    const renderListMovie = () => {
         const {data} = props;
         if(data && data.length > 0){
-            return data.map((user)=><UserDetail key={user.taiKhoan} user={user} />)
+            return data.map((movie)=><Movies key={movie.maPhim} movie={movie} />)
         }
     }
-
   return (
     <div className="p-4 sm:ml-64">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" className="px-6 py-3">
-                    Tài khoản
+                    <th scope="col" className="px-2 py-3">
+                    Mã phim
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                    Tên phim
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                    Bí danh
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                    Trailer
                     </th>
                     <th scope="col" className="px-6 py-3">
-                    Họ và tên
+                    Hình ảnh
+                    </th>
+                    <th scope="col" className="px-12 py-3">
+                    Mô tả
                     </th>
                     <th scope="col" className="px-6 py-3">
-                    Email
+                    Ngày khởi chiếu
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                    Đánh giá
                     </th>
                     <th scope="col" className="px-6 py-3">
-                    Số điện thoại
+                    Options
+                    </th>
+                    {/* <th scope="col" className="px-6 py-3">
+                    Đang chiếu
                     </th>
                     <th scope="col" className="px-6 py-3">
-                    Mã loại người dùng
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                    Action
-                    </th>
+                    Sắp chiếu
+                    </th> */}
                 </tr>
                 </thead>
                 <tbody>
-                {renderListUsers()}
+                {renderListMovie()}
                 </tbody>
             </table>
             </div>
