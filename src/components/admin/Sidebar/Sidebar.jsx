@@ -42,9 +42,6 @@ export default function Sidebar() {
                     <NavLink to="add-movie">
                         <p className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Add Movie</p>
                     </NavLink>
-                    <NavLink to="add-movie-schedule">
-                        <p className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Thêm lịch chiếu phim</p>
-                    </NavLink>
                 </ul>
                 </li>
                 {/* <li>

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import avatarIcon from "../../../../public/images/customer/user-default-avt.png";
+import avatarIcon from "/images/customer/user-default-avt.png";
 import { useCustomerAuth } from "@/utils/context/customerAuthContext";
 
 const customTheme = {

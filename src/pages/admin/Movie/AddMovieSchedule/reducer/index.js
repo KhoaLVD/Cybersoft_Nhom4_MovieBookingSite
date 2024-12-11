@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchCinemaSystem } from "@/utils/redux/thunk/admin/fetchCinemaSystem";
 import { postMovieSchedule } from "@/utils/redux/thunk/admin/postMovieSchedule";
 import { adminFetchMovieById } from "@/utils/redux/thunk/admin/fetchMovieById";
+import { fetchCinemaById } from "@/utils/redux/thunk/admin/fetchCinemaById";
 
 const fetchMovieByIdInitialState = {
     loading: false,
@@ -72,6 +73,31 @@ export const adminFetchCinemaSystem = createSlice({
             state.data = action.payload;
         });
         builder.addCase(fetchCinemaSystem.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        });
+    },
+}).reducer;
+
+const fetchCinemaByIdInitialState = {
+    loading: false,
+    data: {},
+    error: null,
+};
+
+export const adminFetchCinemaById = createSlice({
+    name: "adminFetchCinemaById",
+    initialState: fetchCinemaByIdInitialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(fetchCinemaById.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(fetchCinemaById.fulfilled, (state, action) => {
+            state.loading = false;
+            state.data = action.payload;
+        });
+        builder.addCase(fetchCinemaById.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         });

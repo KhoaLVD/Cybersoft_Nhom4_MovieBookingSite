@@ -8,7 +8,7 @@ export const postMovieSchedule = createAsyncThunk(
             const response = await api.post("/QuanLyDatVe/TaoLichChieu", {
                 ...data,
             });
-            return response.data.content;
+            return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.content);
         }

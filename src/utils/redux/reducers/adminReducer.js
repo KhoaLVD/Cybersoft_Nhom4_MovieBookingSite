@@ -10,6 +10,7 @@ import {
     adminFetchMovieByIdReducer,
     adminPostMovieSchedule,
     adminFetchCinemaSystem,
+    adminFetchCinemaById,
 } from "@/pages/admin/Movie/AddMovieSchedule/reducer";
 
 export default {
@@ -23,4 +24,5 @@ export default {
     adminFetchMovieByIdReducer,
     adminPostMovieSchedule,
     adminFetchCinemaSystem,
+    adminFetchCinemaById,
 };
