@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postRegister } from "@/utils/redux/thunk/postRegister";
 import Spinner from "@/components/customer/Spinner";
@@ -7,14 +7,17 @@ import Spinner from "@/components/customer/Spinner";
 export default function Register() {
     const dispatch = useDispatch();
 
-    const initialUserState = {
-        taiKhoan: "",
-        matKhau: "",
-        email: "",
-        soDt: "",
-        maNhom: "GP01",
-        hoTen: "",
-    };
+    const initialUserState = useMemo(
+        () => ({
+            taiKhoan: "",
+            matKhau: "",
+            email: "",
+            soDt: "",
+            maNhom: "GP01",
+            hoTen: "",
+        }),
+        []
+    );
 
     const [user, setUser] = useState(initialUserState);
 
@@ -31,7 +34,7 @@ export default function Register() {
             setRegisterSuccess(true);
             setUser(initialUserState);
         }
-    }, [registerResponse]);
+    }, [registerResponse, initialUserState]);
 
     const handleInputChange = useCallback((e) => {
         const { name, value } = e.target;

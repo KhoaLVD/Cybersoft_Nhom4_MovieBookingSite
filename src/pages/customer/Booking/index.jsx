@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Modal } from "flowbite";
 import { fetchBookingById } from "@/utils/redux/thunk/fetchBookingById";
 import { postTicket } from "@/utils/redux/thunk/postTicket";
-import { useCustomerLoggedIn } from "@/utils/context/customerContext";
+import { useCustomerAuth } from "@/utils/context/customerAuthContext";
 import Spinner from "@/components/customer/Spinner";
 
 export default function Booking() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { customer } = useCustomerLoggedIn();
+    const { customer } = useCustomerAuth();
     const { id: maLichChieu } = useParams();
 
     const [postTicketSuccess, setPostTicketSuccess] = useState(false);
@@ -31,7 +31,6 @@ export default function Booking() {
     useEffect(() => {
         if (postTicketResponse && postTicketResponse.statusCode === 200) {
             setPostTicketSuccess(true);
-            // navigate("/booking-success");
         }
     }, [postTicketResponse, navigate]);
 
@@ -53,7 +52,10 @@ export default function Booking() {
     }, []);
 
     const movieInfo = bookingResponse?.thongTinPhim || {};
-    const movieSeatList = bookingResponse?.danhSachGhe || [];
+    const movieSeatList = useMemo(
+        () => bookingResponse?.danhSachGhe || [],
+        [bookingResponse]
+    );
 
     const movieSeatListHtml = useMemo(() => {
         return movieSeatList.map((seat) => (
@@ -144,7 +146,7 @@ export default function Booking() {
             return;
         }
         dispatch(postTicket(ticketInfo));
-    }, [customer, dispatch, ticketInfo, warningLoginPopup]);
+    }, [customer, dispatch, ticketInfo, warningLoginPopup, ticketBookingModal]);
 
     let ticketBookingModalContent = "";
 
@@ -189,12 +191,16 @@ export default function Booking() {
                 <h3 className="mb-5 text-lg font-normal text-lime-500">
                     Đặt vé thành công.
                 </h3>
-                <Link
-                    to="/"
+                <button
                     className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+                    onClick={() => {
+                        ticketBookingModal.hide();
+                        navigate("/", { replace: true });
+                        return;
+                    }}
                 >
                     Quay lại trang chủ
-                </Link>
+                </button>
             </>
         );
     }

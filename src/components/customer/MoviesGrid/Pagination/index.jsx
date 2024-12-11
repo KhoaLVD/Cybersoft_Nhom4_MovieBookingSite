@@ -43,7 +43,7 @@ export default function Pagination({ moviesFiltered }) {
 
     useEffect(() => {
         dispatch(fetchMovies("GP01"));
-    }, []);
+    }, [dispatch]);
 
     const total = movies.length;
     const items = Math.ceil(total / pageSize);

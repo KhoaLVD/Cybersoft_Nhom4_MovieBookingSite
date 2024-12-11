@@ -1,10 +1,10 @@
 import api from "@/utils/api/customerApi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 
 export default function Banner() {
-    let [banners, setBanner] = useState([]);
+    const [banners, setBanner] = useState([]);
 
     useEffect(() => {
         try {
@@ -16,21 +16,25 @@ export default function Banner() {
         }
     }, []);
 
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-    };
+    const settings = useMemo(() => {
+        return {
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+        };
+    }, []);
 
-    let getBannerList = banners.map((banner) => (
-        <div key={banner.maBanner}>
-            <Link to={`/movie/${banner.maPhim}`}>
-                <img src={banner.hinhAnh} alt="..." />
-            </Link>
-        </div>
-    ));
+    const getBannerList = useMemo(() => {
+        return banners.map((banner) => (
+            <div key={banner.maBanner}>
+                <Link to={`/movie/${banner.maPhim}`}>
+                    <img src={banner.hinhAnh} alt="..." />
+                </Link>
+            </div>
+        ));
+    }, [banners]);
 
     return (
         <section
@@ -38,7 +42,9 @@ export default function Banner() {
             data-carousel="static"
         >
             <div>
-                <Slider {...settings}>{getBannerList}</Slider>
+                {getBannerList && (
+                    <Slider {...settings}>{getBannerList}</Slider>
+                )}
             </div>
         </section>
     );

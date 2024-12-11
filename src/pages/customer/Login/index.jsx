@@ -2,32 +2,32 @@ import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postLogin } from "@/utils/redux/thunk/postLogin";
-import { useCustomerLoggedIn } from "@/utils/context/customerContext";
+import { useCustomerAuth } from "@/utils/context/customerAuthContext";
 import Spinner from "@/components/customer/Spinner";
 
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { customer, login } = useCustomerLoggedIn();
-
-    if (customer && customer.email) {
-        return <Navigate to="/" replace />;
-    }
+    const { customer, login } = useCustomerAuth();
 
     const customerResponse = useSelector(
         (state) => state.postLoginReducer.data
     );
     const isLoading = useSelector((state) => state.postLoginReducer.loading);
 
+    const errorResponse = useSelector((state) => state.postLoginReducer.error);
+
     useEffect(() => {
+        if (customer && customer.email) {
+            navigate("/");
+        }
+
         if (customerResponse.accessToken) {
             login(customerResponse);
             navigate("/");
         }
-    }, [customerResponse]);
-
-    const errorResponse = useSelector((state) => state.postLoginReducer.error);
+    }, [customerResponse, customer, login, navigate]);
 
     const [user, setUser] = useState({
         taiKhoan: "",

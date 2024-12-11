@@ -1,134 +1,94 @@
-import { NavLink, Link } from "react-router-dom";
-import { useCustomerLoggedIn } from "@/utils/context/customerContext";
+import { Link, useLocation } from "react-router-dom";
+import { Avatar, Dropdown, Navbar } from "flowbite-react";
+import { useCustomerAuth } from "@/utils/context/customerAuthContext";
+
+const customTheme = {
+    root: {
+        inner: {
+            base: "max-w-screen-xl mx-auto flex flex-wrap items-center justify-between",
+        },
+    },
+    link: {
+        base: "block py-2 pl-3 pr-4 md:p-0 text-white bg-transparent text-[16px] font-medium",
+        active: {
+            on: "bg-white text-secondary-dark md:bg-transparent md:text-secondary",
+            off: "border-b border-gray-100 hover:bg-gray-50 md:border-0 md:hover:bg-transparent md:hover:text-secondary",
+        },
+    },
+};
 
 export default function Header() {
-    const { customer } = useCustomerLoggedIn();
+    const { customer } = useCustomerAuth();
+    const location = useLocation();
 
     return (
-        <header className="bg-primary-light p-4">
-            <nav>
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <header className="bg-primary-light p-4 lg:p-8">
+            <Navbar
+                className="bg-primary-light"
+                fluid
+                rounded
+                theme={customTheme}
+            >
+                <Navbar.Brand href="/">
                     <h1 className="text-secondary text-2xl font-bold">
-                        <Link to="/">MovieBooking</Link>
+                        MovieBooking
                     </h1>
-                    <div className="flex md:order-2 md:hidden space-x-3 md:space-x-0 rtl:space-x-reverse">
-                        <button
-                            data-collapse-toggle="navbar-cta"
-                            type="button"
-                            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden"
-                            aria-controls="navbar-cta"
-                            aria-expanded="false"
-                        >
-                            <span className="sr-only">Open main menu</span>
-                            <svg
-                                className="w-5 h-5"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 17 14"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M1 1h15M1 7h15M1 13h15"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-                    <div
-                        className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-                        id="navbar-cta"
+                </Navbar.Brand>
+                <div className="flex md:order-2">
+                    <Dropdown
+                        className="bg-primary-light"
+                        arrowIcon={false}
+                        inline
+                        label={
+                            <Avatar
+                                alt="User settings"
+                                img="https://static.thenounproject.com/png/5100711-200.png"
+                                className="bg-secondary rounded-full"
+                            />
+                        }
                     >
-                        <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-                            <li>
-                                <NavLink
-                                    to="/movies"
-                                    className="block py-2 px-3 md:p-0 text-white rounded md:bg-transparent md:text-blue-70 md:hover:text-red-700"
-                                    aria-current="page"
-                                >
-                                    Danh sách phim
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/cinema"
-                                    className="block py-2 px-3 md:p-0 text-white rounded md:hover:bg-transparent md:hover:text-red-700"
-                                >
-                                    Rạp chiếu
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/contact"
-                                    className="block py-2 px-3 md:p-0 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-700"
-                                >
-                                    Liên hệ
-                                </NavLink>
-                            </li>
-                        </ul>
-                        <div className="flex gap-5 mt-5 md:hidden md:mt-0">
-                            {customer ? (
-                                <Link
-                                    to="/profile"
-                                    className="text-red-700 px-4 py-2 hover:text-secondary-dark"
-                                >
-                                    {customer.email}
-                                </Link>
-                            ) : (
-                                <>
-                                    <Link
-                                        to="/login"
-                                        className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
-                                    >
-                                        Đăng nhập
-                                    </Link>
-                                    <Link
-                                        to="/register"
-                                        className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
-                                    >
-                                        Đăng ký
-                                    </Link>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                    <div className="hidden md:flex md:gap-5 md:order-3">
                         {customer ? (
                             <>
-                                <Link
-                                    to="/profile"
-                                    className="text-red-700 px-4 py-2 hover:text-secondary-dark"
-                                >
-                                    {"Xin chào " + customer.hoTen}
-                                </Link>
-                                <Link
-                                    to="/logout"
-                                    className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
-                                >
-                                    Đăng xuất
-                                </Link>
+                                <Dropdown.Header className="text-white bg-transparent hover:bg-transparent focus:bg-transparent hover:text-secondary">
+                                    <span className="block text-sm">
+                                        {customer.hoTen}
+                                    </span>
+                                    <span className="block truncate text-sm font-medium">
+                                        {customer.email}
+                                    </span>
+                                </Dropdown.Header>
+                                <Dropdown.Item className="text-white bg-transparent hover:bg-transparent focus:bg-transparent hover:text-secondary">
+                                    <Link to="/logout">Đăng xuất</Link>
+                                </Dropdown.Item>
                             </>
                         ) : (
                             <>
-                                <Link
-                                    to="/login"
-                                    className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
-                                >
-                                    Đăng nhập
-                                </Link>
-                                <Link
-                                    to="/register"
-                                    className="bg-secondary-dark px-4 py-2 rounded hover:bg-red-700"
-                                >
-                                    Đăng ký
-                                </Link>
+                                <Dropdown.Item className="text-white bg-transparent hover:bg-transparent focus:bg-transparent hover:text-secondary">
+                                    <Link to="/login">Đăng nhập</Link>
+                                </Dropdown.Item>
+                                <Dropdown.Item className="text-white bg-transparent hover:bg-transparent focus:bg-transparent hover:text-secondary">
+                                    <Link to="/register">Đăng ký</Link>
+                                </Dropdown.Item>
                             </>
                         )}
-                    </div>
+                    </Dropdown>
+                    <Navbar.Toggle className="ml-2 focus:bg-transparent" />
                 </div>
-            </nav>
+                <Navbar.Collapse>
+                    <Navbar.Link
+                        href="/movies"
+                        active={location.pathname === "/movies"}
+                    >
+                        Danh sách phim
+                    </Navbar.Link>
+                    <Navbar.Link
+                        href="/contact"
+                        active={location.pathname === "/contact"}
+                    >
+                        Liên hệ
+                    </Navbar.Link>
+                </Navbar.Collapse>
+            </Navbar>
         </header>
     );
 }

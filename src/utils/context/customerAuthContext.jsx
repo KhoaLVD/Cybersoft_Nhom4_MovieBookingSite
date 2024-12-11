@@ -1,8 +1,8 @@
 import { createContext, useState, useContext } from "react";
 
-const CustomerContext = createContext();
+const CustomerAuthContext = createContext();
 
-export const CustomerProvider = ({ children }) => {
+export const CustomerAuthProvider = ({ children }) => {
     const [customer, setCustomer] = useState(() => {
         const customerData = localStorage.getItem("CUSTOMER_LOGGED");
         return customerData ? JSON.parse(customerData) : null;
@@ -19,10 +19,10 @@ export const CustomerProvider = ({ children }) => {
     };
 
     return (
-        <CustomerContext.Provider value={{ customer, login, logout }}>
+        <CustomerAuthContext.Provider value={{ customer, login, logout }}>
             {children}
-        </CustomerContext.Provider>
+        </CustomerAuthContext.Provider>
     );
 };
 
-export const useCustomerLoggedIn = () => useContext(CustomerContext);
+export const useCustomerAuth = () => useContext(CustomerAuthContext);

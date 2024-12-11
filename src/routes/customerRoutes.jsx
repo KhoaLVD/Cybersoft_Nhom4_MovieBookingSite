@@ -1,9 +1,7 @@
 import Home from "@/pages/customer/Home";
 import Movies from "@/pages/customer/Movies";
 import MovieDetail from "@/pages/customer/MovieDetail";
-import Cinema from "@/pages/customer/Cinema";
 import Booking from "@/pages/customer/Booking";
-import BookingSuccess from "@/pages/customer/BookingSuccess";
 import Contact from "@/pages/customer/Contact";
 import Login from "@/pages/customer/Login";
 import Logout from "@/pages/customer/Logout";
@@ -27,16 +25,8 @@ const customerRoutes = {
             element: MovieDetail,
         },
         {
-            path: "cinema",
-            element: Cinema,
-        },
-        {
             path: "booking/:id",
             element: Booking,
-        },
-        {
-            path: "booking-success",
-            element: BookingSuccess,
         },
         {
             path: "contact",

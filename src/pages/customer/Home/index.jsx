@@ -27,8 +27,10 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        setShowingMovies(movies.filter((movie) => movie.dangChieu));
-        setHotMovies(movies.filter((movie) => movie.hot));
+        if (movies) {
+            setShowingMovies(movies.filter((movie) => movie.dangChieu));
+            setHotMovies(movies.filter((movie) => movie.hot));
+        }
     }, [movies]);
 
     return (

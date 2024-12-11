@@ -1,4 +1,5 @@
 import { StrictMode } from "react";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import { createRoot } from "react-dom/client";
 import "../node_modules/flowbite/dist/flowbite.js";
 import "./index.scss";

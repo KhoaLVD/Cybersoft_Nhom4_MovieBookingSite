@@ -15,8 +15,7 @@ import Spinner from "@/components/customer/Spinner";
 export default function MovieDetail() {
     const dispatch = useDispatch();
 
-    const response = useSelector((state) => state.customerMovieDetailPage);
-    const movie = response.data;
+    const movie = useSelector((state) => state.customerMovieDetailPage.data);
 
     const { id } = useParams();
 
@@ -34,7 +33,10 @@ export default function MovieDetail() {
         (state) => state.customerMovieDetailPageMoviewShowTimesReducer.loading
     );
 
-    const cinemaSystemList = showTimesRes ? showTimesRes.heThongRapChieu : [];
+    const cinemaSystemList = useMemo(
+        () => (showTimesRes ? showTimesRes.heThongRapChieu : []),
+        [showTimesRes]
+    );
     const [cinemaList, setCinemaList] = useState([]);
     const [watchTimes, setWatchTimes] = useState([]);
     const [selectedCinemaSystem, setSelectedCinemaSystem] = useState(null);
@@ -88,25 +90,23 @@ export default function MovieDetail() {
 
     const [modalShowing, setModalShowing] = useState(false);
 
-    const modalOptions = {
-        onHide: () => {
-            setModalShowing(false);
-        },
-        onShow: () => {
-            setModalShowing(true);
-        },
-    };
-
     const modalElement = document.querySelector("#trailer-modal");
 
-    const trailerModal = useMemo(
-        () =>
-            new Modal(modalElement, modalOptions, {
-                id: "trailer-modal",
-                override: true,
-            }),
-        [modalElement]
-    );
+    const trailerModal = useMemo(() => {
+        const modalOptions = {
+            onHide: () => {
+                setModalShowing(false);
+            },
+            onShow: () => {
+                setModalShowing(true);
+            },
+        };
+
+        return new Modal(modalElement, modalOptions, {
+            id: "trailer-modal",
+            override: true,
+        });
+    }, [modalElement]);
 
     return (
         <div className="md:py-16 lg:px-40">
@@ -124,7 +124,7 @@ export default function MovieDetail() {
                         Xem trailer
                     </button>
                 </div>
-                <div className="md:w-2/3 px-6">
+                <div className="mt-8 md:mt-0 md:w-2/3 px-6">
                     <div className="xl:flex md:gap-4 mb-8">
                         <h2 className="mb-4 xl:mb-0 text-4xl font-bold">
                             {movie.tenPhim}
@@ -220,25 +220,27 @@ export default function MovieDetail() {
                     </div>
                 </div>
             </div>
-            <div className="mt-10">
+            <div className="mt-8">
                 {/* Hot Movies */}
                 {hotMovieLoading ? (
                     <Spinner />
                 ) : (
                     <MoviesCarousel
                         label="Phim Hot"
-                        wrapperClass="container mx-auto py-10 px-8 md:px-4 md:px-0"
+                        wrapperClass="container mx-auto py-10 px-8 md:px-8"
                         movies={hotMovies}
                     />
                 )}
             </div>
 
             {/* Trailer modal */}
-            <MovieTrailerModal
-                modalIntance={trailerModal}
-                modalShowing={modalShowing}
-                trailerSrc={movie.trailer}
-            />
+            {movie.trailer ? (
+                <MovieTrailerModal
+                    modalIntance={trailerModal}
+                    modalShowing={modalShowing}
+                    trailerSrc={movie.trailer}
+                />
+            ) : null}
         </div>
     );
 }
