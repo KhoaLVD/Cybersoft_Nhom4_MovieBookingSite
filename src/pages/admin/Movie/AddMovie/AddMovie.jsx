@@ -304,7 +304,7 @@ export default function AddMovie() {
                         Thêm
                     </button>
                 </form>
-                <ToastContainer position="top-right" autoClose={5000} />
+                <ToastContainer position="top-right" autoClose={3000} />
             </div>
         </div>
     );

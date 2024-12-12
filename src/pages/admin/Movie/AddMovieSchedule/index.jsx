@@ -5,16 +5,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
-import toast, { Toaster } from "react-hot-toast";
+import { toast, ToastContainer } from "react-toastify";
 import { fetchCinemaSystem } from "@/utils/redux/thunk/admin/fetchCinemaSystem";
 import { fetchCinemaById } from "@/utils/redux/thunk/admin/fetchCinemaById";
 import { postMovieSchedule } from "@/utils/redux/thunk/admin/postMovieSchedule";
 import { adminFetchMovieById } from "@/utils/redux/thunk/admin/fetchMovieById";
-
-const successNotify = () =>
-    toast.success("Thêm lịch chiếu thành công", {
-        position: "top-right",
-    });
 
 export default function AddMovieSchedule() {
     const { id } = useParams();
@@ -42,7 +37,7 @@ export default function AddMovieSchedule() {
             postMovieScheduleResponse &&
             postMovieScheduleResponse.statusCode === 200
         ) {
-            successNotify();
+            toast.success("Thêm lịch chiếu thành công");
             setFormData(initStateFormData);
             setCinemaSystemSelected("");
         }
@@ -246,10 +241,10 @@ export default function AddMovieSchedule() {
                         >
                             Xác nhận
                         </button>
-                        <Toaster />
                     </form>
                 </div>
             </div>
+            <ToastContainer position="top-right" autoClose={3000} />
         </div>
     );
 }
