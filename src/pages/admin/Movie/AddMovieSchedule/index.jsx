@@ -18,17 +18,20 @@ const successNotify = () =>
 
 export default function AddMovieSchedule() {
     const { id } = useParams();
-
     const dispatch = useDispatch();
 
-    const initStateFormData = {
-        maPhim: id,
-        ngayChieuGioChieu: new Date().toLocaleString(),
-        maRap: "",
-        giaVe: 0,
-    };
+    const initStateFormData = useMemo(
+        () => ({
+            maPhim: id,
+            ngayChieuGioChieu: new Date().toLocaleString(),
+            maRap: "",
+            giaVe: 0,
+        }),
+        [id]
+    );
 
     const [formData, setFormData] = useState(initStateFormData);
+    const [cinemaSystemSelected, setCinemaSystemSelected] = useState("");
 
     const postMovieScheduleResponse = useSelector(
         (state) => state.adminPostMovieSchedule.data
@@ -41,9 +44,9 @@ export default function AddMovieSchedule() {
         ) {
             successNotify();
             setFormData(initStateFormData);
-            setCinemaSystemSelected
+            setCinemaSystemSelected("");
         }
-    }, [postMovieScheduleResponse]);
+    }, [postMovieScheduleResponse, initStateFormData]);
 
     const movie = useSelector((state) => state.adminFetchMovieByIdReducer.data);
 
@@ -54,7 +57,7 @@ export default function AddMovieSchedule() {
     const cinema = useSelector((state) => state.adminFetchCinemaById.data);
 
     const cinemaSystemOptionList = useMemo(() => {
-        if (!cinemaSystem.length) return null;
+        if (!cinemaSystem || !cinemaSystem.length) return null;
         return cinemaSystem.map((item) => {
             return (
                 <option key={item.maHeThongRap} value={item.maHeThongRap}>
@@ -64,10 +67,8 @@ export default function AddMovieSchedule() {
         });
     }, [cinemaSystem]);
 
-    const [cinemaSystemSelected, setCinemaSystemSelected] = useState("");
-
     const cinemaOptionList = useMemo(() => {
-        if (!cinema.length || !cinemaSystemSelected) return null;
+        if (!cinema || !cinema.length || !cinemaSystemSelected) return null;
         return cinema.map((item) => {
             return (
                 <option key={item.maCumRap} value={item.maCumRap}>
@@ -83,7 +84,7 @@ export default function AddMovieSchedule() {
             if (!maHeThongRap) return;
             dispatch(fetchCinemaById(maHeThongRap));
         },
-        [cinemaSystem]
+        [dispatch]
     );
 
     const handleChangeCinema = useCallback((maCumRap) => {
@@ -146,9 +147,6 @@ export default function AddMovieSchedule() {
                                     {movie.tenPhim}
                                 </h5>
                             </a>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                {movie.moTa}
-                            </p>
                         </div>
                     </div>
                 )}

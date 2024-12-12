@@ -43,7 +43,16 @@ export default function Header() {
                         label={
                             <Avatar
                                 alt="User settings"
-                                img={avatarIcon}
+                                img={(props) => {
+                                    props.className = "rounded h-8 w-8";
+                                    return (
+                                        <img
+                                            {...props}
+                                            src={avatarIcon}
+                                            alt="User settings"
+                                        />
+                                    );
+                                }}
                                 className="bg-secondary rounded-full"
                             />
                         }

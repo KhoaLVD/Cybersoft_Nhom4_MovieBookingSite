@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchPaginationMovie } from "@/utils/redux/thunk/fetchMovies";
 import LeftSideBar from "@/components/customer/LeftSideBar";
@@ -12,7 +12,7 @@ export default function Movies() {
         (state) => state.customerMoviesListPageByPagination
     );
     const isLoading = response?.loading;
-    let movies = response?.data.items || [];
+    const movies = useMemo(() => response?.data.items || [], [response]);
     const [searchParams] = useSearchParams();
     const page = searchParams.get("p") ? parseInt(searchParams.get("p")) : 1;
     const loaiPhim = searchParams.get("loaiPhim");

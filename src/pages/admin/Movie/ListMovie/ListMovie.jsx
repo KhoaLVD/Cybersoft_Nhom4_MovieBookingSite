@@ -40,9 +40,6 @@ export default function ListMovie() {
                     <th scope="col" className="px-2 py-3">
                     Bí danh
                     </th>
-                    <th scope="col" className="px-2 py-3">
-                    Trailer
-                    </th>
                     <th scope="col" className="px-6 py-3">
                     Hình ảnh
                     </th>
