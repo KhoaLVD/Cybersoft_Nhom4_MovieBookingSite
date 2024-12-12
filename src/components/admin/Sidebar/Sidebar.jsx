@@ -36,7 +36,6 @@ export default function Sidebar() {
                     className="md:hidden text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                     <svg
-                        aria-hidden="true"
                         className="w-5 h-5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
@@ -117,14 +116,6 @@ export default function Sidebar() {
                                 </NavLink>
                             </ul>
                         </li>
-                        {/* <li>
-                <NavLink to="movie" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 3h18v18H3V3zm2 2v2h2V5H5zm4 0v6h6V5H9zm8 0v2h2V5h-2zm2 4h-2v2h2V9zm0 4h-2v2h2v-2zm0 4h-2v2h2v-2zm-4 2v-6H9v6h6zm-8 0v-2H5v2h2zm-2-4h2v-2H5v2zm0-4h2V9H5v2z"/>
-                </svg>
-                    <span className="ms-3">Movies</span>
-                </NavLink>
-                </li> */}
                         <li>
                             <button
                                 type="button"
