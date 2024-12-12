@@ -8,15 +8,17 @@ export const actLogin = createAsyncThunk(
             const result = await api.post(`/QuanLyNguoiDung/DangNhap`, user);
 
             const userInfo = result.data.content;
-            if (userInfo.maLoaiNguoiDung === "QuanTri") {
-                localStorage.setItem("USER_ADMIN", JSON.stringify(userInfo));
-            } else {
+
+            if (userInfo.maLoaiNguoiDung !== "QuanTri") {
                 return rejectWithValue({
                     data: {
                         content: "Bạn không có quyền truy cập trang này",
                     },
                 });
             }
+
+            localStorage.setItem("USER_ADMIN", JSON.stringify(userInfo));
+            return userInfo;
         } catch (e) {
             return rejectWithValue(e.response);
         }
