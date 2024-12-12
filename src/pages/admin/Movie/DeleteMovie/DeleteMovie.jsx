@@ -1,14 +1,12 @@
 import { useDispatch } from "react-redux";
 import { deleteMovie } from "./reducer";
-import { useNavigate } from "react-router-dom";
+
 export default function DeleteMovie(props) {
     const { movie } = props;
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const handleDeleteMovie = (movie) => {
         dispatch(deleteMovie(movie));
-        navigate("/admin/list-movie");
     };
 
     return (

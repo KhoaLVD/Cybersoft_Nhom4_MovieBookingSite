@@ -29,7 +29,7 @@ export default function Movies(props) {
                 <td className="flex flex-col lg:flex-row gap-2 lg:gap-1 px-6 py-4">
                     <Link
                         to={`/admin/add-movie-schedule/${movie.maPhim}`}
-                        className="text-white bg-amber-500 hover:bg-green-800 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2"
+                        className="text-white bg-amber-500 hover:bg-green-800 text-center font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2"
                     >
                         Thêm lịch chiếu
                     </Link>

@@ -2,6 +2,8 @@ import Sidebar from "../../components/admin/Sidebar/Sidebar"
 import { Outlet } from "react-router-dom"
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function AdminTemplate() {
   const props = useSelector((state) => state.adminLoginReducer);
   if(!props.data){
