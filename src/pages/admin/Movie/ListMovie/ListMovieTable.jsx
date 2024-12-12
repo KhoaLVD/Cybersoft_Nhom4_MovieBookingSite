@@ -10,7 +10,7 @@ export default function ListMovieTable() {
 
     useEffect(() => {
         dispatch(fetchListMovies());
-    }, [dispatch]);
+    }, []);
 
     const renderListMovie = useCallback(() => {
         const { data } = props;
