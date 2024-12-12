@@ -9,10 +9,9 @@ import { useState, useEffect } from "react";
 export default function AddMovie() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { loading, data, error } = useSelector(
-        (state) => state.adminAddMovieReducer
-    );
-    const [imgSrc, setImgSrc] = useState("");
+    const { data, error } = useSelector((state) => state.adminAddMovieReducer);
+    const [image, setImage] = useState(null);
+    const [inputFile, setInputFile] = useState(null);
 
     const validationRules = Yup.object({
         tenPhim: Yup.string().required("Movie title is required"),
@@ -67,22 +66,20 @@ export default function AddMovie() {
                 }
             }
             dispatch(addMovie(formData)).then(() => {
-                resetForm();
-                setImgSrc("");
+                resetForm({});
+                setImage(null);
+                inputFile.value = "";
             });
         },
     });
 
     const handleChangeFile = (e) => {
         let file = e.target.files[0];
-
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e) => {
-            setImgSrc(e.target.result);
-        };
+        setInputFile(e.target);
+        setImage(URL.createObjectURL(file));
         formik.setFieldTouched("hinhAnh");
         formik.setFieldValue("hinhAnh", file);
+        URL.revokeObjectURL(image);
     };
 
     useEffect(() => {
@@ -96,6 +93,7 @@ export default function AddMovie() {
 
     return (
         <div className="p-4 sm:ml-64">
+            <h1 className="text-4xl font-bold mt-8 mb-8">Thêm mới phim</h1>
             <div className="p-4 md:p-5 space-y-4">
                 <form
                     onSubmit={formik.handleSubmit}
@@ -171,7 +169,13 @@ export default function AddMovie() {
                                 </span>
                             </div>
                         )}
-                        <img className="w-24 h-36 mt-2" src={imgSrc} alt="" />
+                        {image ? (
+                            <img
+                                src={image}
+                                className="w-60 h-72 mt-2"
+                                alt="preview"
+                            />
+                        ) : null}
                     </div>
                     <div className="mb-5">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

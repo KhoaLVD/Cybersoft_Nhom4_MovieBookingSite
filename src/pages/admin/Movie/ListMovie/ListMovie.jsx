@@ -14,18 +14,18 @@ export default function ListMovie() {
     useEffect(() => {
         if (dataDelete) {
             toast.success("Xóa phim thành công!");
+            dispatch(fetchListMovies());
         }
         if (errorDelete) {
             toast.error("Có lỗi xảy ra khi xóa phim!");
         }
-        dispatch(fetchListMovies());
     }, [dataDelete, errorDelete, dispatch]);
 
     return (
         <div className="p-4 sm:ml-64">
             <h1 className="text-4xl font-bold my-8">Danh sách phim</h1>
             <ListMovieTable />
-            <ToastContainer position="top-right" autoClose={5000} />
+            <ToastContainer position="top-right" autoClose={3000} />
         </div>
     );
 }

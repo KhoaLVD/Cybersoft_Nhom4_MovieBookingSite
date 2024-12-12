@@ -30,24 +30,6 @@ export default function Auth() {
     },
   });
 
-  // const [user, setUser] = useState({
-  //   taiKhoan: "",
-  //   matKhau: "",
-  // });
-
-  // const handleOnChange = (e) =>{
-  //   const {name, value} = e.target;
-  //   setUser({
-  //     ...user,
-  //     [name]: value,
-  //   })
-  // }
-
-  // const handleLogin = (e) =>{
-  //   e.preventDefault();
-  //   dispatch(actLogin(user));
-  // }
-
   if (props.loading) return <p>Loading...</p>;
 
   const renderError = () => {
