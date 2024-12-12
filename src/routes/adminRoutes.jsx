@@ -16,7 +16,7 @@ const adminRoutes = {
     element: AdminTemplate,
     children: [
         {
-            path: "dashboard",
+            path: "",
             element: Dashboard,
         },
         {
