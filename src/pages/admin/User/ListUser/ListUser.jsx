@@ -51,6 +51,7 @@ export default function ListUser() {
 
     return (
         <div className="p-4 sm:ml-64">
+            <h1 className="text-4xl font-bold mt-8 mb-8">Danh sách user</h1>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
