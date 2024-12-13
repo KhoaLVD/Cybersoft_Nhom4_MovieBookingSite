@@ -1,5 +1,6 @@
 import ListMovieTable from "./ListMovieTable";
 import { fetchListMovies } from "./reducer";
+import { reset as resetDeleteMovie } from "../DeleteMovie/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
@@ -19,6 +20,10 @@ export default function ListMovie() {
         if (errorDelete) {
             toast.error("Có lỗi xảy ra khi xóa phim!");
         }
+
+        return () => {
+            dispatch(resetDeleteMovie());
+        };
     }, [dataDelete, errorDelete, dispatch]);
 
     return (

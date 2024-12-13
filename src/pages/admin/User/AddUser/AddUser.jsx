@@ -34,8 +34,7 @@ export default function AddUser() {
         }),
         onSubmit: (values) => {
             dispatch(addUser(values));
-            // dispatch(fetchListUsers());
-            navigate(-1);
+            navigate("/admin/list-user");
         },
     });
     return (

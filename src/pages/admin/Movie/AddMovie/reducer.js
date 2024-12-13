@@ -30,7 +30,13 @@ const initialState = {
 const adminAddMovieReducer = createSlice({
     name: "adminAddMovieReducer",
     initialState,
-    reducers: {},
+    reducers: {
+        reset: (state) => {
+            state.loading = false;
+            state.data = null;
+            state.error = null;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(addMovie.pending, (state) => {
             state.loading = true;
@@ -45,5 +51,7 @@ const adminAddMovieReducer = createSlice({
         });
     },
 });
+
+export const { reset } = adminAddMovieReducer.actions;
 
 export default adminAddMovieReducer.reducer;

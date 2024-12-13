@@ -8,9 +8,13 @@ export default function ListUser() {
     const dispatch = useDispatch();
     const props = useSelector((state) => state.adminListUserReducer);
 
+    const { data: deleteUser, error: deleteUserError } = useSelector(
+        (state) => state.adminDeleteUserReducer
+    );
+
     useEffect(() => {
         dispatch(fetchListUsers());
-    }, []);
+    }, [dispatch, deleteUser, deleteUserError]);
 
     if (props.loading) {
         return (

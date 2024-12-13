@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import * as Yup from "yup";
-import { addMovie } from "./reducer";
+import { addMovie, reset } from "./reducer";
 import { useState, useEffect } from "react";
 
 export default function AddMovie() {
@@ -89,7 +89,11 @@ export default function AddMovie() {
         if (error) {
             toast.error("Có lỗi xảy ra khi thêm phim!");
         }
-    }, [data, error, navigate]);
+
+        return () => {
+            dispatch(reset());
+        };
+    }, [data, error, navigate, dispatch]);
 
     return (
         <div className="p-4 sm:ml-64">
