@@ -10,57 +10,62 @@ import UpdateUser from "@/pages/admin/User/UpdateUser/UpdateUser";
 import ListMovie from "@/pages/admin/Movie/ListMovie/ListMovie";
 import AddMovie from "@/pages/admin/Movie/AddMovie/AddMovie";
 import Logout from "@/pages/admin/Logout";
+import UpdateMovie from "@/pages/admin/Movie/UpdateMovie/UpdateMovie";
 
 const adminRoutes = {
-    path: "admin",
-    element: AdminTemplate,
-    children: [
-        {
-            path: "",
-            element: Dashboard,
-        },
-        {
-            path: "movie",
-            element: Movie,
-        },
-        {
-            path: "add-movie-schedule/:id",
-            element: AddMovieSchedule,
-        },
-        {
-            path: "user",
-            element: User,
-        },
-        {
-            path: "list-user",
-            element: ListUser,
-        },
-        {
-            path: "add-user",
-            element: AddUser,
-        },
-        {
-            path: "update-user/:id",
-            element: UpdateUser,
-        },
-        {
-            path: "list-movie",
-            element: ListMovie,
-        },
-        {
-            path: "add-movie",
-            element: AddMovie,
-        },
-        {
-            path: "logout",
-            element: Logout,
-        },
-    ],
+  path: "admin",
+  element: AdminTemplate,
+  children: [
+    {
+      path: "",
+      element: Dashboard,
+    },
+    {
+      path: "movie",
+      element: Movie,
+    },
+    {
+      path: "add-movie-schedule/:id",
+      element: AddMovieSchedule,
+    },
+    {
+      path: "update-movie/:id",
+      element: UpdateMovie,
+    },
+    {
+      path: "user",
+      element: User,
+    },
+    {
+      path: "list-user",
+      element: ListUser,
+    },
+    {
+      path: "add-user",
+      element: AddUser,
+    },
+    {
+      path: "update-user/:id",
+      element: UpdateUser,
+    },
+    {
+      path: "list-movie",
+      element: ListMovie,
+    },
+    {
+      path: "add-movie",
+      element: AddMovie,
+    },
+    {
+      path: "logout",
+      element: Logout,
+    },
+  ],
 };
 
 const authRoutes = {
-    path: "auth",
-    element: Auth,
+  path: "auth",
+  element: Auth,
 };
 
 export { adminRoutes, authRoutes };

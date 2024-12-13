@@ -7,6 +7,8 @@ import adminDetailUserReducer from "@/pages/admin/User/UserDetail/reducer";
 import adminListMovieReducer from "@/pages/admin/Movie/ListMovie/reducer";
 import adminAddMovieReducer from "@/pages/admin/Movie/AddMovie/reducer";
 import adminDeleteMovieReducer from "@/pages/admin/Movie/DeleteMovie/reducer";
+import adminDetailMovieReducer from "@/pages/admin/Movie/MovieDetail/reducer";
+import adminUpdateMovieReducer from "@/pages/admin/Movie/UpdateMovie/reducer";
 
 
 
@@ -31,5 +33,7 @@ export default {
     adminPostMovieSchedule,
     adminFetchCinemaSystem,
     adminFetchCinemaById,
+    adminDetailMovieReducer,
+    adminUpdateMovieReducer
 };
 
