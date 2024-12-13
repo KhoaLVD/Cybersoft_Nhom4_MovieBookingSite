@@ -12,7 +12,7 @@ export default function Auth() {
 
     useEffect(() => {
         if (props.data) {
-            navigate("/admin/dashboard");
+            navigate("/admin");
         }
     }, [props]);
 
