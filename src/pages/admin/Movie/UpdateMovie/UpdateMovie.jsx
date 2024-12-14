@@ -36,6 +36,7 @@ export default function UpdateMovie() {
 
   const formik = useFormik({
     initialValues: {
+      maPhim: "",
       tenPhim: "",
       trailer: "",
       hinhAnh: null,
@@ -71,7 +72,7 @@ export default function UpdateMovie() {
         }
       }
       dispatch(updateMovie(formData)).then(() => {
-        // navigate("/admin/list-movie");
+        navigate("/admin/list-movie");
       });
     },
   });
@@ -87,6 +88,7 @@ export default function UpdateMovie() {
   useEffect(() => {
     if (data) {
       formik.setValues({
+        maPhim: data.maPhim,
         tenPhim: data.tenPhim,
         trailer: data.trailer,
         // hinhAnh: data.hinhAnh,
