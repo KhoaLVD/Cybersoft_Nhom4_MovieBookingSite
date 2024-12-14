@@ -17,6 +17,11 @@ import { postLoginReducer } from "@/pages/customer/Login/reducer";
 
 import { postRegisterReducer } from "@/pages/customer/Register/reducer";
 
+import {
+    fetchCustomerInfoReducer,
+    postCustomerInfoReducer,
+} from "@/pages/customer/Profile/reducer";
+
 export default {
     customerMoviesListPage,
     customerMoviesListPageByPagination,
@@ -26,4 +31,6 @@ export default {
     postTicketReducer,
     postLoginReducer,
     postRegisterReducer,
+    fetchCustomerInfoReducer,
+    postCustomerInfoReducer,
 };
