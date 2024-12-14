@@ -6,6 +6,7 @@ import Contact from "@/pages/customer/Contact";
 import Login from "@/pages/customer/Login";
 import Logout from "@/pages/customer/Logout";
 import Register from "@/pages/customer/Register";
+import Profile from "@/pages/customer/Profile";
 import { lazy } from "react";
 
 const customerRoutes = {
@@ -43,6 +44,10 @@ const customerRoutes = {
         {
             path: "register",
             element: Register,
+        },
+        {
+            path: "profile",
+            element: Profile,
         },
     ],
 };

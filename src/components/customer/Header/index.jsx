@@ -60,12 +60,14 @@ export default function Header() {
                         {customer ? (
                             <>
                                 <Dropdown.Header className="text-white bg-transparent hover:bg-transparent focus:bg-transparent hover:text-secondary">
-                                    <span className="block text-sm">
-                                        {customer.hoTen}
-                                    </span>
-                                    <span className="block truncate text-sm font-medium">
-                                        {customer.email}
-                                    </span>
+                                    <Link to="/profile">
+                                        <span className="block text-sm">
+                                            {customer.hoTen}
+                                        </span>
+                                        <span className="block truncate text-sm font-medium">
+                                            {customer.email}
+                                        </span>
+                                    </Link>
                                 </Dropdown.Header>
                                 <Dropdown.Item className="text-white bg-transparent hover:bg-transparent focus:bg-transparent hover:text-secondary">
                                     <Link to="/logout">Đăng xuất</Link>
