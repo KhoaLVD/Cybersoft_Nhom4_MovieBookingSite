@@ -7,7 +7,7 @@ export default function MovieCard({ movie }) {
                 <img
                     src={movie.hinhAnh}
                     alt={movie.tenPhim}
-                    className="h-[60%] md:h-[70%] w-full object-cover rounded-lg"
+                    className="h-[60%] md:h-[65%] xl:h-[70%] w-full object-cover rounded-lg"
                 />
                 <div className="flex flex-col gap-1 md:gap-2 px-2">
                     <h3 className="mt-1 md:mt-4 text-white text-lg font-bold truncate max-w-full">

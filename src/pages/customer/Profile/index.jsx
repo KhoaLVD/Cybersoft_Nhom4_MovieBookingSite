@@ -86,7 +86,7 @@ export default function Profile() {
                 matKhau: customerInfo.matKhau,
                 email: customerInfo.email,
                 soDt: customerInfo.soDT,
-                maNhom: "GP01",
+                maNhom: "GP03",
                 maLoaiNguoiDung: "KhachHang",
                 hoTen: customerInfo.hoTen,
             });
@@ -271,7 +271,7 @@ export default function Profile() {
                                                 className="w-full md:w-20 max-w-2xl rounded-lg"
                                             />
                                         </div>
-                                        <div className="flex-[0.6] grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div className="flex-[0.6] grid grid-cols-1 sm:grid-cols-3 gap-4">
                                             <div>
                                                 <p className="font-medium text-gray-400">
                                                     Mã vé
@@ -288,21 +288,42 @@ export default function Profile() {
                                                     {booking.tenPhim}
                                                 </p>
                                             </div>
+                                            <div className="row-span-2">
+                                                <p className="font-medium text-gray-400">
+                                                    Danh sách ghế
+                                                </p>
+                                                <div className="grid grid-cols-3 sm:grid-cols-5">
+                                                    {booking.danhSachGhe.map(
+                                                        (ghe) => {
+                                                            return (
+                                                                <span
+                                                                    key={
+                                                                        ghe.maGhe
+                                                                    }
+                                                                    className="text-gray-400"
+                                                                >
+                                                                    {ghe.tenGhe}
+                                                                </span>
+                                                            );
+                                                        }
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p className="font-medium text-gray-400">
+                                                    Giá vé/Ghế
+                                                </p>
+                                                <p className="text-gray-200">
+                                                    {booking.giaVe.toLocaleString()}{" "}
+                                                    VNĐ
+                                                </p>
+                                            </div>
                                             <div>
                                                 <p className="font-medium text-gray-400">
                                                     Ngày đặt
                                                 </p>
                                                 <p className="text-gray-200">
                                                     {booking.ngayDat}
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <p className="font-medium text-gray-400">
-                                                    Giá vé
-                                                </p>
-                                                <p className="text-gray-200">
-                                                    {booking.giaVe.toLocaleString()}{" "}
-                                                    VNĐ
                                                 </p>
                                             </div>
                                         </div>
