@@ -4,6 +4,7 @@ import { useEffect, useMemo, useCallback } from "react";
 import { fetchMovies } from "@/utils/redux/thunk/fetchMovies";
 import { pageSize } from "@/config/customer/movie/pagination";
 
+// eslint-disable-next-line react/prop-types
 export default function Pagination({ moviesFiltered }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
@@ -42,8 +43,10 @@ export default function Pagination({ moviesFiltered }) {
     });
 
     useEffect(() => {
-        dispatch(fetchMovies("GP01"));
-    }, [dispatch]);
+        if (needFetchAllFlag) {
+            dispatch(fetchMovies("GP01"));
+        }
+    }, [dispatch, needFetchAllFlag]);
 
     const total = movies.length;
     const items = Math.ceil(total / pageSize);

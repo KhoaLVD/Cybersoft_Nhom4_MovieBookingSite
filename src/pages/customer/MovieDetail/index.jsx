@@ -84,9 +84,11 @@ export default function MovieDetail() {
         (state) => state.customerMoviesListPage.loading
     );
 
-    const hotMovies = hotMoviesRes.filter(
-        (hotMovie) => hotMovie.hot && hotMovie.maPhim !== movie.maPhim
-    );
+    const hotMovies = useMemo(() => {
+        return hotMoviesRes.filter(
+            (hotMovie) => hotMovie.hot && hotMovie.maPhim !== movie.maPhim
+        );
+    }, [hotMoviesRes, movie]);
 
     const [modalShowing, setModalShowing] = useState(false);
 

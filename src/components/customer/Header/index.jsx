@@ -43,11 +43,10 @@ export default function Header() {
                         label={
                             <Avatar
                                 alt="User settings"
-                                img={(props) => {
-                                    props.className = "rounded h-8 w-8";
+                                img={() => {
                                     return (
                                         <img
-                                            {...props}
+                                            className="rounded h-8 w-8"
                                             src={avatarIcon}
                                             alt="User settings"
                                         />

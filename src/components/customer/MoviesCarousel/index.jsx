@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import MovieCard from "./MovieCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function MoviesCarousel({ label, wrapperClass, movies }) {
+export default memo(function MoviesCarousel({ label, wrapperClass, movies }) {
     let slickSetting = {
         dots: false,
         infinite: false,
@@ -78,4 +79,4 @@ export default function MoviesCarousel({ label, wrapperClass, movies }) {
             )}
         </section>
     );
-}
+});
